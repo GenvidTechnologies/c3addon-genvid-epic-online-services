@@ -1,0 +1,120 @@
+﻿{
+    "$schema": "../SDK/plugin-sdk/v2/aces.schema.json",
+    "custom": {
+        "conditions": [
+            {
+                "id": "on-initialization-success",
+                "scriptName": "OnInitializationSuccess",
+                "isTrigger": true
+            },
+            {
+                "id": "on-initialization-error",
+                "scriptName": "OnInitializationError",
+                "isTrigger": true
+            },
+            {
+                "id": "on-login-persistent-success",
+                "scriptName": "OnLoginPersistentSuccess",
+                "isTrigger": true,
+                "highlight": true
+            },
+            {
+                "id": "on-login-persistent-error",
+                "scriptName": "OnLoginPersistentError",
+                "isTrigger": true
+            },
+            {
+                "id": "on-login-portal-success",
+                "scriptName": "OnLoginPortalSuccess",
+                "isTrigger": true,
+                "highlight": true
+            },
+            {
+                "id": "on-login-portal-error",
+                "scriptName": "OnLoginPortalError",
+                "isTrigger": true
+            },
+            {
+                "id": "on-logout-success",
+                "scriptName": "OnLogoutSuccess",
+                "isTrigger": true
+            },
+            {
+                "id": "on-logout-error",
+                "scriptName": "OnLogoutError",
+                "isTrigger": true
+            },
+            {
+                "id": "on-login-state-change",
+                "scriptName": "OnLoginStateChange",
+                "isTrigger": true
+            },
+            {
+                "id": "is-logged-in",
+                "scriptName": "IsLoggedIn",
+                "highlight": true
+            },
+            {
+                "id": "is-initialized",
+                "scriptName": "IsInitialized"
+            }
+        ],
+        "actions": [
+            {
+                "id": "initialize",
+                "scriptName": "Initialize",
+                "highlight": true,
+                "isAsync": true
+            },
+            {
+                "id": "on-network-change",
+                "scriptName": "OnNetworkChange",
+                "params": [
+                    {
+                        "id": "connected",
+                        "type": "boolean",
+                        "initialValue": "true"
+                    }
+                ]
+            },
+            {
+                "id": "login-persistent",
+                "scriptName": "LoginPersistent",
+                "isAsync": true
+            },
+            {
+                "id": "login-portal",
+                "scriptName": "LoginPortal",
+                "isAsync": true
+            },
+            {
+                "id": "logout",
+                "scriptName": "Logout",
+                "isAsync": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "get-account-id",
+                "expressionName": "AccountId",
+                "highlight": true,
+                "returnType": "string"
+            },
+            {
+                "id": "get-username",
+                "expressionName": "Username",
+                "returnType": "string"
+            },
+            {
+                "id": "get-logging-status",
+                "expressionName": "LoggingStatus",
+                "returnType": "string"
+            },
+            {
+                "id": "get-token",
+                "expressionName": "Token",
+                "returnType": "string"
+            }
+        ]
+    }
+}

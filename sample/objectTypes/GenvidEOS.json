@@ -1,0 +1,12 @@
+{
+	"name": "GenvidEOS",
+	"plugin-id": "Genvid_EOS",
+	"sid": 116746662608191,
+	"singleglobal-inst": {
+		"type": "GenvidEOS",
+		"properties": {},
+		"uid": 10,
+		"sid": 509853804154514,
+		"tags": ""
+	}
+}

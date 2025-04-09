@@ -1,0 +1,16 @@
+{
+	"name": "JWT",
+	"plugin-id": "Json",
+	"sid": 779120345116702,
+	"isGlobal": true,
+	"editorNewInstanceIsReplica": true,
+	"instanceVariables": [
+		{
+			"name": "token",
+			"type": "string",
+			"desc": "",
+			"show": true,
+			"sid": 561032445563249
+		}
+	]
+}

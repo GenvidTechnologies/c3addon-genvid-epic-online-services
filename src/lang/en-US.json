@@ -1,0 +1,135 @@
+﻿{
+	"$schema": "../../SDK/plugin-sdk/v2/plugin.lang.schema.json",
+	"languageTag": "en-US",
+	"fileDescription": "Strings for Genvid EOS.",
+	"text": {
+		"plugins": {
+			"genvid_eos": {
+				"name": "GenvidEOS",
+				"description": "Integration of Epic Online Services API.",
+				"help-url": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
+				"properties": {},
+				"aceCategories": {
+					"custom": "Custom"
+				},
+				"conditions": {
+					"on-initialization-success": {
+						"display-text": "On Initialization Successful",
+						"list-name": "On Initialization Successful",
+						"description": "Trigger when the SDK has been initialized"
+					},
+					"on-initialization-error": {
+						"display-text": "On Initialization Error",
+						"list-name": "On Initialization Error",
+						"description": "Trigger when an error happens during initialization"
+					},
+					"on-login-persistent-success": {
+						"display-text": "On Persistent Login Successful",
+						"list-name": "On Persistent Login Successful",
+						"description": "Trigger when the Persistent Login is successful"
+					},
+					"on-login-persistent-error": {
+						"display-text": "On Persistent Login Error",
+						"list-name": "On Persistent Login Error",
+						"description": "Trigger when an error occured during Persistent Login"
+					},
+					"on-login-portal-success": {
+						"display-text": "On Portal Login Successful",
+						"list-name": "On Portal Login Successful",
+						"description": "Trigger when the Portal Login is successful"
+					},
+					"on-login-portal-error": {
+						"display-text": "On Portal Login Error",
+						"list-name": "On Portal Login Error",
+						"description": "Trigger when an error occured during Portal Login"
+					},
+					"on-logout-success": {
+						"display-text": "On Successful Logout",
+						"list-name": "On Successful Logout",
+						"description": "Trigger when Logout has completed"
+					},
+					"on-logout-error": {
+						"display-text": "On Logout Error",
+						"list-name": "On Logout Error",
+						"description": "Trigger when an error occured during Logout"
+					},
+					"on-login-state-change": {
+						"display-text": "On Login State Changed",
+						"list-name": "On Login State Changed",
+						"description": "Trigger when the login state change"
+					},
+					"is-logged-in": {
+						"display-text": "Is Logged In",
+						"list-name": "Is Logged In",
+						"description": "Return if the user is actually logged in"
+					},
+					"is-initialized": {
+						"display-text": "Is Initialized",
+						"list-name": "Is Initialized",
+						"description": "Returns if the SDK has been initialized properly"
+					}
+				},
+				"actions": {
+					"initialize": {
+						"list-name": "Initialize SDK",
+						"display-text": "Initialize SDK",
+						"description": "Load and Initialize the SDK."
+					},
+					"on-network-change": {
+						"list-name": "Change Network State",
+						"display-text": "Change Network State (connected: {0})",
+						"description": "Must be called when network state change",
+						"params": {
+							"connected": {
+								"name": "Connected",
+								"desc": "Either the network is connected or not"
+							}
+						}
+					},
+					"login-persistent": {
+						"display-text": "Try Persistent Login",
+						"list-name": "Persistent Login",
+						"description": "Try to login with the persistent credentials from last login."
+					},
+					"login-portal": {
+						"display-text": "Login",
+						"list-name": "Login with Account Portal",
+						"description": "Launch a browser session to login with Epic Portal"
+					},
+					"logout": {
+						"display-text": "Logout",
+						"list-name": "Logout",
+						"description": "Logout the user"
+					}
+				},
+				"expressions": {
+					"get-account-id": {
+						"description": "Return the account id of the user.",
+						"translated-name": "AccountId"
+					},
+					"get-username": {
+						"description": "Return the Epic Username of the user",
+						"translated-name": "Username"
+					},
+					"get-logging-status": {
+						"description": "Return the latest state of the login. Can be 'inProgress', 'loggedIn' or 'loggedOut'",
+						"translated-name": "LoginState"
+					},
+					"get-token": {
+						"description": "Return the encoded token for the user.",
+						"translated-name": "Token"
+					}
+				},
+				"debugger": {
+					"title": "Genvid EOS",
+					"initialized": "Initialized",
+					"state": "Login Status",
+					"logged": "Logged In",
+					"username": "Username",
+					"accountid": "Account Id",
+					"token": "Token"
+				}
+			}
+		}
+	}
+}

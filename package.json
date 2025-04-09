@@ -1,5 +1,15 @@
 {
   "devDependencies": {
+    "http-server": "^14.1.1",
+    "shx": "^0.4.0",
     "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "build": "tsc -p src --outDir dist",
+    "postbuild": "shx cp src/*.{json,svg} dist/ && shx mkdir -p dist/lang && shx cp src/lang/*.json dist/lang && shx rm dist/tsconfig.json",
+    "watch": "tsc -p src --outDir dist -w",
+    "devmode": "http-server dist --cors",
+    "prezip:windows": "shx rm -f Genvid_EOS.c3addon",
+    "zip:windows": "cd dist && 7z.exe a -tzip -r ..\\Genvid_EOS.c3addon ."
   }
 }

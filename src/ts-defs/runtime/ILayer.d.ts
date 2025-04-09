@@ -24,6 +24,7 @@ declare class ILayer
     zElevation: number;
     blendMode: BlendModeParameter;
     backgroundColor: number[];
+    renderingMode: "2d" | "3d";
 
     scrollX: number;
     scrollY: number;

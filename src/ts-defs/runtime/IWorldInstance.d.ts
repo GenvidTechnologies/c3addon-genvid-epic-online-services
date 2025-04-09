@@ -50,6 +50,11 @@ declare class IWorldInstance extends IInstance
 	zElevation: number;
 	readonly totalZElevation: number;
 
+	originX: number;
+	originY: number;
+	setOrigin(x: number, y: number): void;
+	getOrigin(): number[];
+
 	width: number;
 	height: number;
 	setSize(w: number, h: number): void;
@@ -58,8 +63,8 @@ declare class IWorldInstance extends IInstance
 	angle: number;
 	angleDegrees: number;
 
-	getBoundingBox(): DOMRect;
-	getBoundingQuad(): DOMQuad;
+	getBoundingBox(ignoreMesh?: boolean): DOMRect;
+	getBoundingQuad(ignoreMesh?: boolean): DOMQuad;
 	isOnScreen(): boolean;
 
 	isVisible: boolean;

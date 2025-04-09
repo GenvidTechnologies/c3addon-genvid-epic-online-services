@@ -55,3 +55,6 @@ Thumbs.db
 *.c3addon
 ios/
 html5/
+sample/files/eos_config.json
+.vscode
+build*/

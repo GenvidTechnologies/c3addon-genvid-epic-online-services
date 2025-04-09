@@ -1,0 +1,10 @@
+{
+	"name": "Logs",
+	"plugin-id": "Text",
+	"sid": 521863744549716,
+	"isGlobal": false,
+	"editorNewInstanceIsReplica": true,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": []
+}

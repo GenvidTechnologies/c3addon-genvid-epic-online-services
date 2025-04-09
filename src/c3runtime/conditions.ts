@@ -1,0 +1,41 @@
+
+import type { SDKInstanceClass } from "./instance.ts";
+
+const C3 = globalThis.C3;
+
+C3.Plugins.Genvid_EOS.Cnds =
+{
+	OnInitializationSuccess(this: SDKInstanceClass) {
+		return true;
+	},
+	OnInitializationError(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLoginPersistentSuccess(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLoginPersistentError(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLoginPortalSuccess(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLoginPortalError(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLogoutSuccess(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLogoutError(this: SDKInstanceClass) {
+		return true;
+	},
+	OnLoginStateChange(this: SDKInstanceClass) {
+		return true;
+	},
+	IsLoggedIn(this: SDKInstanceClass) {
+		return this._loggedIn;
+	},
+	IsInitialized(this: SDKInstanceClass) {
+		return this._initialized;
+	}
+};

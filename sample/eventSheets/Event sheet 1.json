@@ -1,0 +1,1198 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-hierarchy-ready",
+					"objectClass": "Field",
+					"sid": 116168919317113
+				},
+				{
+					"id": "pick-children",
+					"objectClass": "Field",
+					"sid": 953516364353302,
+					"parameters": {
+						"child": "Label",
+						"which": "own"
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "Label",
+					"sid": 313785826482092,
+					"parameters": {
+						"text": "Field.Tags & \":\""
+					}
+				}
+			],
+			"sid": 840933225804611
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 746332606475780
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "Logs",
+					"sid": 705086847515631,
+					"parameters": {
+						"text": "\"Initializing the SDK...\""
+					}
+				},
+				{
+					"id": "initialize",
+					"objectClass": "GenvidEOS",
+					"sid": 647379808136019
+				}
+			],
+			"sid": 407379145288728
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-went-online",
+					"objectClass": "Browser",
+					"sid": 741361461900636
+				},
+				{
+					"id": "is-initialized",
+					"objectClass": "GenvidEOS",
+					"sid": 204365304270735
+				}
+			],
+			"actions": [
+				{
+					"id": "on-network-change",
+					"objectClass": "GenvidEOS",
+					"sid": 615879583077037,
+					"parameters": {
+						"connected": true
+					}
+				}
+			],
+			"sid": 660976624026805
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-went-offline",
+					"objectClass": "Browser",
+					"sid": 448751934668311
+				},
+				{
+					"id": "is-initialized",
+					"objectClass": "GenvidEOS",
+					"sid": 551348501483327
+				}
+			],
+			"actions": [
+				{
+					"id": "on-network-change",
+					"objectClass": "GenvidEOS",
+					"sid": 794107045789335,
+					"parameters": {
+						"connected": false
+					}
+				}
+			],
+			"sid": 837512157179724
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Buttons Activation",
+			"description": "",
+			"isActiveOnStart": false,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-initialized",
+							"objectClass": "GenvidEOS",
+							"sid": 589916420475465,
+							"isInverted": true
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 912029615535838
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 137244590569169,
+							"parameters": {
+								"type": "log",
+								"message": "\"EOS Not initialized\""
+							}
+						}
+					],
+					"sid": 521501130010498,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 332901771156683,
+									"parameters": {
+										"tags": "\"Refresh\""
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 811529570517433,
+									"parameters": {
+										"mode": "disabled"
+									}
+								}
+							],
+							"sid": 135892139745751
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-initialized",
+							"objectClass": "GenvidEOS",
+							"sid": 466410492843479
+						},
+						{
+							"id": "is-logged-in",
+							"objectClass": "GenvidEOS",
+							"sid": 435750398960271
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 355583795768080
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 367487930377777,
+							"parameters": {
+								"type": "log",
+								"message": "\"EOS Logged In\""
+							}
+						}
+					],
+					"sid": 307587305239754,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 302308107195125,
+									"parameters": {
+										"tags": "\"Logout\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 336775722316337,
+									"parameters": {
+										"mode": "enabled"
+									}
+								}
+							],
+							"sid": 414151633974496
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 203553928379164,
+									"parameters": {
+										"tags": "\"Login\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 400071749613117,
+									"parameters": {
+										"mode": "disabled"
+									}
+								}
+							],
+							"sid": 844980158525417
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-initialized",
+							"objectClass": "GenvidEOS",
+							"sid": 410004009252052
+						},
+						{
+							"id": "is-logged-in",
+							"objectClass": "GenvidEOS",
+							"sid": 593058020450551,
+							"isInverted": true
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 814159205367980
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 609602011827468,
+							"parameters": {
+								"type": "log",
+								"message": "\"EOS Logged Out\""
+							}
+						}
+					],
+					"sid": 298266019407529,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 490414793868052,
+									"parameters": {
+										"tags": "\"Logout\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 640246802546490,
+									"parameters": {
+										"mode": "disabled"
+									}
+								}
+							],
+							"sid": 272412486606326
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 577664562062304,
+									"parameters": {
+										"tags": "\"Login\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 361083351723210,
+									"parameters": {
+										"mode": "enabled"
+									}
+								}
+							],
+							"sid": 959864264162132
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-clicked",
+							"objectClass": "Button",
+							"sid": 138813857590178
+						}
+					],
+					"actions": [],
+					"sid": 384107222524698,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 772278596682504,
+									"parameters": {
+										"tags": "\"Logout\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "logout",
+									"objectClass": "GenvidEOS",
+									"sid": 361674351415251
+								}
+							],
+							"sid": 663829787347761
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 913730865673454,
+									"parameters": {
+										"tags": "\"Login\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "login-persistent",
+									"objectClass": "GenvidEOS",
+									"sid": 282120301159692
+								}
+							],
+							"sid": 389474607364525
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 706033282146410,
+									"parameters": {
+										"tags": "\"Refresh\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "Update Fields",
+									"sid": 799710427102352
+								}
+							],
+							"sid": 616822225965896
+						}
+					]
+				}
+			],
+			"sid": 460687069059791
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Login Events",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "Update Fields",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 635260638253209,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-initialized",
+									"objectClass": "GenvidEOS",
+									"sid": 991154772123298
+								}
+							],
+							"actions": [],
+							"sid": 979709816528477,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Field",
+											"sid": 411595785043596,
+											"parameters": {
+												"tags": "\"Status\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Field",
+											"sid": 936268982685386,
+											"parameters": {
+												"text": "GenvidEOS.LoggingStatus"
+											}
+										}
+									],
+									"sid": 417501137368188
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-logged-in",
+											"objectClass": "GenvidEOS",
+											"sid": 160702904941403
+										}
+									],
+									"actions": [],
+									"sid": 686535712774440,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 889294084356214,
+													"parameters": {
+														"tags": "\"Username\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 883119954362914,
+													"parameters": {
+														"text": "GenvidEOS.Username"
+													}
+												}
+											],
+											"sid": 678285941975779
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 386747656237455,
+													"parameters": {
+														"tags": "\"AccountID\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 478803711336909,
+													"parameters": {
+														"text": "GenvidEOS.AccountId"
+													}
+												}
+											],
+											"sid": 864608330859644
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 877904702549796,
+													"parameters": {
+														"tags": "\"Token\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"customAction": "LoadToken",
+													"objectClass": "JWT",
+													"sid": 633079887112971,
+													"parameters": [
+														"GenvidEOS.Token"
+													]
+												},
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 317097726931742,
+													"parameters": {
+														"text": "JWT.ToBeautifiedString"
+													}
+												}
+											],
+											"sid": 138601251227732
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "else",
+											"objectClass": "System",
+											"sid": 444365207088254
+										}
+									],
+									"actions": [],
+									"sid": 779768913022417,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 575663801756636,
+													"parameters": {
+														"tags": "\"Username\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 516581095811406,
+													"parameters": {
+														"text": "\"\""
+													}
+												}
+											],
+											"sid": 645852124642728
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 976943333265040,
+													"parameters": {
+														"tags": "\"AccountID\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 207883766776480,
+													"parameters": {
+														"text": "\"\""
+													}
+												}
+											],
+											"sid": 889710627198572
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "has-tags",
+													"objectClass": "Field",
+													"sid": 373033512867696,
+													"parameters": {
+														"tags": "\"Token\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-text",
+													"objectClass": "Field",
+													"sid": 628722583293815,
+													"parameters": {
+														"text": "\"\""
+													}
+												}
+											],
+											"sid": 592868068533720
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 679884516386781
+								}
+							],
+							"actions": [],
+							"sid": 982497636859573,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Field",
+											"sid": 241714207700016,
+											"parameters": {
+												"tags": "\"Status\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Field",
+											"sid": 992721245319819,
+											"parameters": {
+												"text": "\"unintialized\""
+											}
+										}
+									],
+									"sid": 919369381250051
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Field",
+											"sid": 259162890382604,
+											"parameters": {
+												"tags": "\"Username\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Field",
+											"sid": 197847331276359,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 831826439561313
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Field",
+											"sid": 114881049383940,
+											"parameters": {
+												"tags": "\"AccountID\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Field",
+											"sid": 666359772143377,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 392503876943959
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Field",
+											"sid": 139586924494932,
+											"parameters": {
+												"tags": "\"Token\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-text",
+											"objectClass": "Field",
+											"sid": 136187914824324,
+											"parameters": {
+												"text": "\"\""
+											}
+										}
+									],
+									"sid": 682085007178175
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-login-state-change",
+							"objectClass": "GenvidEOS",
+							"sid": 704707303449713
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "Update Fields",
+							"sid": 918448093443645
+						}
+					],
+					"sid": 342265743184099
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-logout-success",
+							"objectClass": "GenvidEOS",
+							"sid": 282793995487073
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 605213452931327,
+							"parameters": {
+								"text": "\"Logout successful\""
+							}
+						}
+					],
+					"sid": 412161913391920
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-login-persistent-success",
+							"objectClass": "GenvidEOS",
+							"sid": 660216832664300
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 195603456894201,
+							"parameters": {
+								"text": "\"Persistent login successful\""
+							}
+						}
+					],
+					"sid": 880367165482183
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-login-portal-success",
+							"objectClass": "GenvidEOS",
+							"sid": 297245866149276
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 268943400985995,
+							"parameters": {
+								"text": "\"Portal login successful\""
+							}
+						}
+					],
+					"sid": 793642987189860
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-initialization-success",
+							"objectClass": "GenvidEOS",
+							"sid": 640859574684541
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 630728320893650,
+							"parameters": {
+								"text": "\"SDK initialized\""
+							}
+						},
+						{
+							"id": "set-group-active",
+							"objectClass": "System",
+							"sid": 750222828804919,
+							"parameters": {
+								"group-name": "\"Buttons Activation\"",
+								"state": "activated"
+							}
+						},
+						{
+							"callFunction": "Update Fields",
+							"sid": 236928897777335
+						}
+					],
+					"sid": 245145784492846,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-online",
+									"objectClass": "Browser",
+									"sid": 595388630592697
+								}
+							],
+							"actions": [
+								{
+									"id": "on-network-change",
+									"objectClass": "GenvidEOS",
+									"sid": 583017135930359,
+									"parameters": {
+										"connected": true
+									}
+								}
+							],
+							"sid": 613755609243829
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 352788603710842
+								}
+							],
+							"actions": [
+								{
+									"id": "on-network-change",
+									"objectClass": "GenvidEOS",
+									"sid": 510752565934256,
+									"parameters": {
+										"connected": false
+									}
+								}
+							],
+							"sid": 111543397386485
+						}
+					]
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Errors",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-initialization-error",
+									"objectClass": "GenvidEOS",
+									"sid": 301068008270201
+								},
+								{
+									"id": "is-initialized",
+									"objectClass": "GenvidEOS",
+									"sid": 606973575433901,
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 837169245090837,
+									"parameters": {
+										"text": "\"Error initializing SDK. Waiting 10 seconds before retrying...\""
+									}
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 358049760154266,
+									"parameters": {
+										"seconds": "10",
+										"use-timescale": false
+									}
+								},
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 990555910343184,
+									"parameters": {
+										"text": "\"Retrying\""
+									}
+								},
+								{
+									"id": "initialize",
+									"objectClass": "GenvidEOS",
+									"sid": 694735610984068
+								}
+							],
+							"sid": 654967995640408
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-login-persistent-error",
+									"objectClass": "GenvidEOS",
+									"sid": 968425106883825
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 984483372843733,
+									"parameters": {
+										"text": "\"No persistent login, trying portal login\""
+									}
+								},
+								{
+									"id": "login-portal",
+									"objectClass": "GenvidEOS",
+									"sid": 840006887876581
+								}
+							],
+							"sid": 819163471289830
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-login-portal-error",
+									"objectClass": "GenvidEOS",
+									"sid": 688561047962879
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 588845520352233,
+									"parameters": {
+										"text": "\"Error trying to login with portal\""
+									}
+								}
+							],
+							"sid": 432264206657665
+						}
+					],
+					"sid": 600898635904581
+				}
+			],
+			"sid": 226187563211597
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "JWT",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "b64decode",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "string",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "b64string",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 541274293334751
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"type": "script",
+							"script": [
+								"runtime.setReturnValue(atob(localVars.b64string));"
+							]
+						}
+					],
+					"sid": 683326800674164
+				},
+				{
+					"aceType": "action",
+					"aceName": "Clear",
+					"objectClass": "JWT",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "custom-ace-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-instvar-value",
+							"objectClass": "JWT",
+							"sid": 767480841344936,
+							"parameters": {
+								"instance-variable": "token",
+								"value": "\"\""
+							}
+						},
+						{
+							"id": "parse",
+							"objectClass": "JWT",
+							"sid": 293102585911785,
+							"parameters": {
+								"data": "\"null\""
+							}
+						}
+					],
+					"sid": 996993939855020
+				},
+				{
+					"aceType": "action",
+					"aceName": "LoadToken",
+					"objectClass": "JWT",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "token",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 787462513445348
+						}
+					],
+					"eventType": "custom-ace-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "parse",
+							"objectClass": "JWT",
+							"sid": 391261801080811,
+							"parameters": {
+								"data": "\"{}\""
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "JWT",
+							"sid": 157787593974551,
+							"parameters": {
+								"instance-variable": "token",
+								"value": "token"
+							}
+						},
+						{
+							"id": "set-json",
+							"objectClass": "JWT",
+							"sid": 130357564984115,
+							"parameters": {
+								"path": "\"header\"",
+								"json": "Functions.b64decode(tokenat(token, 0, \".\"))"
+							}
+						},
+						{
+							"id": "set-json",
+							"objectClass": "JWT",
+							"sid": 542419562142864,
+							"parameters": {
+								"path": "\"claim\"",
+								"json": "Functions.b64decode(tokenat(token, 1, \".\"))"
+							}
+						},
+						{
+							"id": "set-value",
+							"objectClass": "JWT",
+							"sid": 116361175844919,
+							"parameters": {
+								"path": "\"signature\"",
+								"value": "tokenat(token, 2, \".\")"
+							}
+						}
+					],
+					"sid": 426705860118308
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-parse-error",
+							"objectClass": "JWT",
+							"sid": 661177084306833
+						}
+					],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 978854763185410,
+							"parameters": {
+								"type": "error",
+								"message": "\"Error parsing token: \" & JWT.token"
+							}
+						}
+					],
+					"sid": 379466803907947
+				}
+			],
+			"sid": 784368778763806
+		}
+	],
+	"sid": 483712092130385
+}

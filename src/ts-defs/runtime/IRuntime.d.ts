@@ -76,6 +76,8 @@ interface ConstructInstanceDestroyEvent extends ConstructEvent {
 }
 
 interface RuntimeEventMap {
+	"suspend": ConstructEvent,
+	"resume": ConstructEvent,
 	"resize": ConstructResizeEvent;
 	"tick": ConstructEvent;
     "beforeprojectstart": ConstructEvent;
@@ -117,7 +119,7 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 	readonly keyboard?: IKeyboardObjectType<IInstance>;
 	readonly mouse?: IMouseObjectType<IInstance>;
 	readonly touch?: ITouchObjectType<IInstance>;
-	readonly platformInfo?: IPlatformInfoObjectType<IInstance>;
+	readonly platformInfo: IPlatformInfo;
 	readonly sdk: ISDKUtils;
 
 	readonly layout: IAnyProjectLayout;
@@ -127,6 +129,7 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 
 	readonly projectName: string;
 	readonly projectVersion: string;
+	readonly exportDate: Date;
 	readonly isInWorker: boolean;
 	readonly viewportWidth: number;
 	readonly viewportHeight: number;
@@ -155,6 +158,9 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 	minDt: number;
 	maxDt: number;
 
+	get loadingProgress(): number;
+	get imageLoadingProgress(): number;
+
 	getInstanceByUid(uid: number): IInstance | null;
 	sortZOrder(iterable: Iterable<IWorldInstance>, callback: (a: IWorldInstance, b: IWorldInstance) => number): void;
 
@@ -179,7 +185,8 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 
 	/** Runtime wrapper for creating a Web Worker, avoiding some issues with browser bugs and
 	 * nested workers.
-	 * @see {@link https://www.construct.net/en/make-games/manuals/construct-3/scripting/guides/creating-workers | Creating workers} */
+	 * @see {@link https://www.construct.net/en/make-games/manuals/construct-3/scripting/guides/creating-workers | Creating workers}
+	 * @deprecated All modern browsers now support nested workers so this method is no longer needed. */
 	createWorker(url: string, opts?: WorkerOptions): Promise<MessagePort>;
 
 	/** Invoke a browser download of the content at the given URL, using the provided filename. */
@@ -194,4 +201,6 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 	 * @deprecated Use runtime.sdk.addLoadPromise() instead of runtime.addLoadPromise()
 	 */
 	addLoadPromise(promise: Promise<void>): void;
+
+	saveCanvasImage(format?: string, quality?: number, areaRect?: DOMRect): Promise<Blob>;
 }

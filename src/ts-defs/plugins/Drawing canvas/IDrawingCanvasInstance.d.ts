@@ -40,4 +40,5 @@ declare class IDrawingCanvasInstance extends IWorldInstance
 	pasteInstances(instances: IWorldInstance[], includeFx?: boolean): Promise<void>;
 	getImagePixelData(): Promise<ImageData>;
 	loadImagePixelData(imageData: ImageData, premultiplyAlpha?: boolean): void;
+	saveImage(format?: string, quality?: number, areaRect?: DOMRect): Promise<Blob>;
 }

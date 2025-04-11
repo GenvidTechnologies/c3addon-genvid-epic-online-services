@@ -14,10 +14,11 @@
             
             // This provides a table of message names to functions to call for those messages.
             this.AddRuntimeMessageHandlers([
-                ["initialize",			async () => this._OnInitialize()],
-                ["network-change",		e => this._OnNetworkChange(e)],
-                ["login",				async e => this._OnLogin(e)],
-                ["logout",				async () => this._OnLogout() ]
+                ["initialize",          async () => this._OnInitialize()],
+                ["network-change",      e => this._OnNetworkChange(e)],
+                ["login",               async e => this._OnLogin(e)],
+                ["logout",              async () => this._OnLogout() ],
+                ["update",              async () => this._OnUpdate() ],
             ]);
         }
 
@@ -77,6 +78,27 @@
             return {
                 result: await this.eos['logout']()
             }
+        }
+
+        async _OnUpdate(): Promise<JSONObject>
+        {
+            // TODO: Move this into cordova plugin to avoid the back and forth.
+            const result = {
+                initialized: this.eos.initialized,
+                loggedIn: false,
+                accountId: '',
+                username: '',
+                token: ''
+            };
+            if (result.initialized) {
+                result.loggedIn = await this.eos.isLoggedIn();
+            }
+            if (result.loggedIn) {
+                result.accountId = await this.eos.getAccountId();
+                result.username = await this.eos.getUsername();
+                result.token = await this.eos.getAuthToken();
+            }
+            return result;
         }
     };
 

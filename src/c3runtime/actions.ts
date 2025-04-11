@@ -5,11 +5,13 @@ const C3 = globalThis.C3;
 C3.Plugins.Genvid_EOS.Acts = {
   Initialize(this: SDKInstanceClass) {
     return this._postToDOMAsync("initialize", {})
-      .then(() => {
+      .then(async () => {
         this._initialized = true;
+        await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationSuccess);
       })
-      .catch(() => {
+      .catch(async () => {
+        await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationError);
       });
   },
@@ -19,20 +21,25 @@ C3.Plugins.Genvid_EOS.Acts = {
   LoginPersistent(this: SDKInstanceClass) {
     return this._postToDOMAsync("login", { persistent: true })
       .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(() =>
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPersistentError)
-      );
+      .catch(async () => {
+        await this._updateState();
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPersistentError);
+      });
   },
   LoginPortal(this: SDKInstanceClass) {
     return this._postToDOMAsync("login", { persistent: false })
       .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(() =>
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPortalError)
-      );
+      .catch(async () => {
+        await this._updateState();
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPortalError);
+      });
   },
   Logout(this: SDKInstanceClass) {
     return this._postToDOMAsync("logout")
       .then((result) => this._onLogoutResult(result as JSONObject))
-      .catch(() => this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLogoutError));
+      .catch(async () => {
+        await this._updateState();
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLogoutError);
+      });
   },
 };

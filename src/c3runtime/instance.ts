@@ -77,6 +77,20 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     }
   }
 
+  async _updateState() {
+    try {
+      const state = await this._postToDOMAsync("update") as JSONObject;
+      this._initialized = state.initialized as boolean;
+      this._loggedIn = state.loggedIn as boolean;
+      this._accountId = state.account as string;
+      this._username = state.username as string;
+      this._token = state.token as string;
+      this._onStateChange();
+    } catch(err) {
+      console.error(`Error updating state: ${(err as Error).message}`);
+    }
+  }
+
   _release() {
     super._release();
   }

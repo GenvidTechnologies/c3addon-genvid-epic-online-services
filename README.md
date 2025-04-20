@@ -46,7 +46,7 @@ Unzip the Cordova for Android export, then:
 
 ```bash
 npm install cordova
-npx cordova plugin install file://<path/to/cordova-plugin/folder>/cordova-plugin-eos-0.0.1.tgz
+npx cordova plugin install file://<path/to/cordova-plugin/folder>/cordova-plugin-eos-1.0.0.tgz
 npx cordova platform add android
 npx cordova build android
 ```

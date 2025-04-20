@@ -30,7 +30,15 @@
         _onStateChange(state: EOSLoginStatus) {
             this.PostToRuntime('on-state-change', { ...state });
         }
+
+        get auth(): EosAuth {
+            return this.eos['auth'];
+        }
         
+        get ecom(): EosEcom {
+            return this.eos['ecom'];
+        }
+
         async _OnInitialize(): Promise<void>
         {
             if (!this.eos['available']) {
@@ -56,13 +64,13 @@
 
         async _OnLogin(e: JSONValue): Promise<JSONValue> {
             const { persistent } = (e as JSONObject);
-            const success =  await this.eos['login'](persistent as boolean);
+            const success =  await this.auth['login'](persistent as boolean);
             if (success) {
                 return {
                     result: true,
-                    accountId: await this.eos['getAccountId'](),
-                    username: await this.eos['getUsername'](),
-                    token: await this.eos['getAuthToken'](),
+                    accountId: await this.auth['getAccountId'](),
+                    username: await this.auth['getUsername'](),
+                    token: await this.auth['getAuthToken'](),
                     persistent,
                 }
             } else {
@@ -76,7 +84,7 @@
         async _OnLogout(): Promise<JSONValue>
         {
             return {
-                result: await this.eos['logout']()
+                result: await this.auth['logout']()
             }
         }
 
@@ -84,19 +92,19 @@
         {
             // TODO: Move this into cordova plugin to avoid the back and forth.
             const result = {
-                initialized: this.eos.initialized,
+                initialized: this.eos['initialized'],
                 loggedIn: false,
                 accountId: '',
                 username: '',
                 token: ''
             };
             if (result.initialized) {
-                result.loggedIn = await this.eos.isLoggedIn();
+                result.loggedIn = await this.auth['isLoggedIn']();
             }
             if (result.loggedIn) {
-                result.accountId = await this.eos.getAccountId();
-                result.username = await this.eos.getUsername();
-                result.token = await this.eos.getAuthToken();
+                result.accountId = await this.auth['getAccountId']();
+                result.username = await this.auth['getUsername']();
+                result.token = await this.auth['getAuthToken']();
             }
             return result;
         }

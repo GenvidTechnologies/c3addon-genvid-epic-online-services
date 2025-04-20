@@ -7,12 +7,61 @@
 /**
  * This plugin exposed some EOS services, including Platform, Authentication and EComm.
  */
-interface EOSPlatform {
 
+interface EosItem {
+    Id: string;
+    Title: string;
 }
 
-interface EOSComm {
+interface EosOffer {
+    Id: string;
+    Title: string;
+    Description: string;
+    LongDescription: string;
+    Currency: string;
+    Discount?: number;
+    OriginalPrice?: number;
+    CurrentPrice?: number;
+    DecimalPoint?: number;
+    Available: boolean;
+    Expiration?: string; // ISO8601 date
+    ReleaseDate?: string; // ISO8601 date
+    EffectiveDate?: string; // ISO8601 date
+    Items: Array<EosItem>;
+}
 
+interface EosEntitlement {
+    Name: string;
+    Id: string;
+    CatalogItemId: string;
+    Redeemed: boolean;
+    EndTimestamp?: string;
+}
+
+interface EosTransaction {
+    TransactionId?: string;
+    NewEntitlements: Array<EosEntitlement>;
+}
+
+interface EosEcom {
+    queryEntitlements(): Promise<Array<EosEntitlement>>;
+    queryOffers(): Promise<Array<EosOffer>>;
+    checkout(offerIds: string[]): Promise<EosTransaction>;
+}
+
+interface EOSLoginStatus {
+    status: "loggedIn" | "loggedOut" | "inProgress";
+}
+
+type onLoginChanged = function (EOSLoginStatus): void;
+
+interface EosAuth {
+    isLoggedIn(): Promise<boolean>;
+    getUsername(): Promise<string>;
+    getAccountId(): Promise<string>;
+    getAuthToken(): Promise<string>;
+    login(persistent: boolean): Promise<boolean>;
+    logout(): Promise<boolean>;
 }
 
 type EOSSDKConfig = {
@@ -25,29 +74,17 @@ type EOSSDKConfig = {
     ClientSecret: string;
 }
 
-interface EOSLoginStatus {
-    status: "loggedIn" | "loggedOut" | "inProgress";
-}
-
-type onLoginChanged = function (EOSLoginStatus): void;
-
 interface EOS {
     /** Indicates that Cordova initialize successfully. */
     available: boolean;
     initialized: boolean;
     sdkVersion?: string;
     /** Get the EOS SDK version. */
-    initializeSDK(config: EOSSDKConfig, handler: onLoginChanged): Promise<boolean>;
-    isLoggedIn(): Promise<boolean>;
-    getUsername(): Promise<string>;
-    getAccountId(): Promise<string>;
-    getAuthToken(): Promise<string>;
+    initializeSDK(config: EOSSDKConfig, handler: onLoginChanged): Promise<void>;
     onConnect(): Promise<void>;
     onDisconnect(): Promise<void>;
-    login(persistent: boolean): Promise<boolean>;
-    logout(): Promise<boolean>;
-    ecomm: EOSComm;
-    platform: EOSPlatform;
+    auth: EosAuth;
+    ecom: EosEcom;
 }
 
 declare var plugins: {

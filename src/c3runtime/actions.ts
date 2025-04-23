@@ -18,6 +18,8 @@ C3.Plugins.Genvid_EOS.Acts = {
   OnNetworkChange(this: SDKInstanceClass, connected: boolean) {
     return this._postToDOM("network-change", { connected });
   },
+
+  // Auth module
   LoginPersistent(this: SDKInstanceClass) {
     return this._postToDOMAsync("login", { persistent: true })
       .then((result) => this._onLoginResult(result as JSONObject))
@@ -42,4 +44,43 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLogoutError);
       });
   },
+
+  // ecom - entitlements
+  GetEntitlements(this: SDKInstanceClass) {
+    return this._postToDOMAsync("get-entitlements")
+      .then((result) => {
+        this._onGetEntitlements(result as JSONObject);
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlements);
+      })
+      .catch(() => {
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlementsError)
+      });
+  },
+  // ecom - offers
+  GetOffers(this: SDKInstanceClass) {
+    return this._postToDOMAsync("get-offers")
+      .then((result) => {
+        this._onGetOffers(result as JSONObject);
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffers)
+      })
+      .catch(() => {
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffersError);
+      })
+  },
+  // ecom - checkout
+  PlanCheckout(this: SDKInstanceClass, offerId: string) {
+    this._checkoutOffers.push(offerId);
+  },
+  Checkout(this: SDKInstanceClass) {
+    const offers = this._checkoutOffers;
+    this._checkoutOffers = [];
+    return this._postToDOMAsync("checkout", { offers })
+      .then((result) => {
+        this._checkoutTransaction = result as unknown as EosTransaction;
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckout);
+      })
+      .catch(() => {
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckoutError);
+      });
+  }
 };

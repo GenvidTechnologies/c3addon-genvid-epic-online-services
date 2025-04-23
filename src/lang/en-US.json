@@ -10,7 +10,11 @@
 				"help-url": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
 				"properties": {},
 				"aceCategories": {
-					"custom": "Custom"
+					"sdk": "SDK",
+					"auth": "Authentication",
+					"ecom-entitlements": "Entitlements",
+					"ecom-offers": "Offers",
+					"ecom-checkout": "Purchases"
 				},
 				"conditions": {
 					"on-initialization-success": {
@@ -67,6 +71,36 @@
 						"display-text": "Is Initialized",
 						"list-name": "Is Initialized",
 						"description": "Returns if the SDK has been initialized properly"
+					},
+					"on-get-entitlements-success": {
+						"display-text": "On Get Entitlements",
+						"list-name": "On Get Entitlements",
+						"description": "Calls on successfull retrieval of user's entitlements"
+					},
+					"on-get-entitlements-error": {
+						"display-text": "On Get Entitlements failure",
+						"list-name": "On Get Entitlements error",
+						"description": "Calls if an error happens when retrieving user's entitlements"
+					},
+					"on-get-offers-success": {
+						"display-text": "On Get Offers",
+						"list-name": "On Get Offers",
+						"description": "Calls when the list of offers is retrieved successfully"
+					},
+					"on-get-offers-error": {
+						"display-text": "On Get Offers failure",
+						"list-name": "On Get Offers failure",
+						"description": "Calls when an error occured while retrieving offers"
+					},
+					"on-checkout-success": {
+						"display-text": "On Checkout",
+						"list-name": "On Checkout",
+						"description": "Calls when the purchase is successful"
+					},
+					"on-checkout-error": {
+						"display-text": "On Checkout failure",
+						"list-name": "On Checkout failure",
+						"description": "Calls when a purchase fail"
 					}
 				},
 				"actions": {
@@ -100,6 +134,32 @@
 						"display-text": "Logout",
 						"list-name": "Logout",
 						"description": "Logout the user"
+					},
+					"get-entitlements": {
+						"display-text": "Get Entitlements",
+						"list-name": "Get Entitlements",
+						"description": "Retrieve the user's entitlements"
+					},
+					"get-offers": {
+						"display-text": "Get Offers",
+						"list-name": "Get Offers",
+						"description": "Refresh the store offers"
+					},
+					"plan-checkout": {
+						"display-text": "Plan offer {0}",
+						"list-name": "Plan offer",
+						"description": "Plan an offer for checkout",
+						"params": {
+							"offerId": {
+								"name": "offerId",
+								"desc": "The Offer ID to checkout"
+							}
+						}
+					},
+					"checkout": {
+						"display-text": "Checkout",
+						"list-name": "Checkout",
+						"description": "Checkout the offers previously planned"
 					}
 				},
 				"expressions": {
@@ -118,16 +178,199 @@
 					"get-token": {
 						"description": "Return the encoded token for the user.",
 						"translated-name": "Token"
+					},
+					"entitlements": {
+						"description": "Returns the list of entitlements as a JSON object",
+						"translated-name": "Entitlements"
+					},
+					"entitlements-count": {
+						"description": "Return the number of entitlements",
+						"translated-name": "EntitlementsCount"
+					},
+					"entitlement-by-index": {
+						"description": "Returns the specified entitlement as a JSON object",
+						"translated-name": "EntitlementByIndex",
+						"params": {
+							"index": {
+								"desc": "The index of the entitlement",
+								"name": "index"
+							}
+						}
+					},
+					"entitlement-by-id": {
+						"description": "Returns the specified entitlement as a JSON object",
+						"translated-name": "EntitlementById",
+						"params": {
+							"id": {
+								"desc": "The id of the entitlement",
+								"name": "id"
+							}
+						}
+					},
+					"entitlement-by-name": {
+						"description": "Returns the specified entitlement as a JSON object",
+						"translated-name": "EntitlementByName",
+						"params": {
+							"name": {
+								"desc": "The name of the entitlement",
+								"name": "name"
+							}
+						}
+					},
+					"offers": {
+						"description": "Returns all offers as JSON object",
+						"translated-name": "Offers"
+					},
+					"offer-by-id": {
+						"description": "Returns the specified offer as a JSON object",
+						"translated-name": "OfferById",
+						"params": {
+							"id": {
+								"desc": "The id of the offer",
+								"name": "id"
+							},
+							"withItems": {
+								"desc": "1 to included Items, 0 otherwise",
+								"name": "withItems"
+							}
+						}
+					},
+					"offers-count": {
+						"description": "Returns the number of offers",
+						"translated-name": "OffersCount"
+					},
+					"offer-by-index": {
+						"description": "Returns the specified offer as a JSON object",
+						"translated-name": "OfferByIndex",
+						"params": {
+							"index": {
+								"desc": "The index of the offer",
+								"name": "index"
+							},
+							"withItems": {
+								"desc": "1 to included Items, 0 otherwise",
+								"name": "withItems"
+							}
+						}
+					},
+					"offer-items-by-index": {
+						"description": "Returns the list of items in the specified offer",
+						"translated-name": "OfferItemsByIndex",
+						"params": {
+							"index": {
+								"desc": "The index of the offer",
+								"name": "index"
+							}
+						}
+					},
+					"offer-items-count-by-index": {
+						"description": "Returns the number of items in the specified offer",
+						"translated-name": "OfferItemsCountByIndex",
+						"params": {
+							"index": {
+								"desc": "The index of the offer",
+								"name": "index"
+							}
+						}
+					},
+					"offer-item-by-index": {
+						"description": "Returns an item in the specified offer",
+						"translated-name": "OfferItemByIndex",
+						"params": {
+							"offerIndex": {
+								"desc": "The index of the offer",
+								"name": "index"
+							},
+							"itemIndex": {
+								"desc": "The index of the item",
+								"name": "index"
+							}
+						}
+					},
+					"offer-items-by-id": {
+						"description": "Returns the list of items in the specified offer",
+						"translated-name": "OfferItemsById",
+						"params": {
+							"id": {
+								"desc": "The id of the offer",
+								"name": "id"
+							}
+						}
+					},
+					"offer-items-count-by-id": {
+						"description": "Returns the number of items in the specified offer",
+						"translated-name": "OfferItemsCountById",
+						"params": {
+							"id": {
+								"desc": "The id of the offer",
+								"name": "id"
+							}
+						}
+					},
+					"offer-item-by-id": {
+						"description": "Returns an item in the specified offer",
+						"translated-name": "OfferItemById",
+						"params": {
+							"offerId": {
+								"desc": "The id of the offer",
+								"name": "index"
+							},
+							"itemIndex": {
+								"desc": "The index of the item",
+								"name": "index"
+							}
+						}
+					},
+					"transaction": {
+						"description": "Returns the last transaction as JSON",
+						"translated-name": "Transaction"
+					},
+					"transaction-id": {
+						"description": "Returns the last transaction Id",
+						"translated-name": "TransactionId"
+					},
+					"transaction-entitlements": {
+						"description": "Returns the new entitlements as JSON",
+						"translated-name": "TransactionEntitlements"
+					},
+					"transaction-entitlements-count": {
+						"description": "Returns the number of new entitlements in that transaction",
+						"translated-name": "TransactionEntitlementsCount"
+					},
+					"transaction-entitlement-by-index": {
+						"description": "Returns the new entitlement specified as JSON",
+						"translated-name": "TransactionEntitlementByIndex",
+						"params": {
+							"index": {
+								"name": "index",
+								"desc": "Index of the entitlement"
+							}
+						}
 					}
 				},
 				"debugger": {
 					"title": "Genvid EOS",
 					"initialized": "Initialized",
-					"state": "Login Status",
-					"logged": "Logged In",
-					"username": "Username",
-					"accountid": "Account Id",
-					"token": "Token"
+					"auth": {
+						"title": "Genvid Eos Auth",
+						"state": "Login Status",
+						"logged": "Logged In",
+						"username": "Username",
+						"accountid": "Account Id",
+						"token": "Token"
+					},
+					"ecom": {
+						"entitlements": {
+							"title": "User Entitlements"
+						},
+						"offers": {
+							"title": "Store Offers"
+						},
+						"checkout": {
+							"title": "Checkout Transaction",
+							"transactionId": "Transaction Id"
+						}
+					}
 				}
 			}
 		}

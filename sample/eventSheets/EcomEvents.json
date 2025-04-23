@@ -1,0 +1,636 @@
+{
+	"name": "EcomEvents",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "CommonEvents"
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Ecom Events",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Ecom Events Buttons",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-clicked",
+									"objectClass": "Button",
+									"sid": 244480249458796
+								},
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 159043539833639,
+									"parameters": {
+										"tags": "\"Auth\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 573272504504365,
+									"parameters": {
+										"layout": "AuthLayout"
+									}
+								}
+							],
+							"sid": 231817302053602
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-clicked",
+									"objectClass": "Button",
+									"sid": 894416917288772
+								},
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 297762086481227,
+									"parameters": {
+										"tags": "\"Entitlements\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 324414678398954,
+									"parameters": {
+										"text": "\"Querying Entitlements...\""
+									}
+								},
+								{
+									"id": "get-entitlements",
+									"objectClass": "GenvidEOS",
+									"sid": 800996215809964
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 841749599418779
+								},
+								{
+									"id": "set-text",
+									"objectClass": "ResultText",
+									"sid": 203734066987756,
+									"parameters": {
+										"text": "Functions.Beautify(GenvidEOS.Entitlements)"
+									}
+								}
+							],
+							"sid": 614206814634804
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-clicked",
+									"objectClass": "Button",
+									"sid": 224364808137398
+								},
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 473651540207742,
+									"parameters": {
+										"tags": "\"Offers\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 629866355809705,
+									"parameters": {
+										"text": "\"Querying Offers...\""
+									}
+								},
+								{
+									"id": "get-offers",
+									"objectClass": "GenvidEOS",
+									"sid": 564069621628934
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 597380342990231
+								},
+								{
+									"id": "set-text",
+									"objectClass": "ResultText",
+									"sid": 625568153678931,
+									"parameters": {
+										"text": "Functions.Beautify(GenvidEOS.Offers)"
+									}
+								}
+							],
+							"sid": 858903864870188
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-clicked",
+									"objectClass": "Button",
+									"sid": 581338913533769
+								},
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 801062677279153,
+									"parameters": {
+										"tags": "\"Transaction\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "ResultText",
+									"sid": 842994505414358,
+									"parameters": {
+										"text": "Functions.Beautify(GenvidEOS.Transaction)"
+									}
+								}
+							],
+							"sid": 974669831186262
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-clicked",
+									"objectClass": "Button",
+									"sid": 455170854630397
+								},
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 305898921052192,
+									"parameters": {
+										"tags": "\"Checkout\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 270246366372874,
+									"parameters": {
+										"text": "\"Checking out \" & OfferIdInput.Text"
+									}
+								},
+								{
+									"id": "set-text",
+									"objectClass": "ResultText",
+									"sid": 998453266700762,
+									"parameters": {
+										"text": "Functions.Beautify(GenvidEOS.Transaction)"
+									}
+								}
+							],
+							"sid": 946154236518905,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 540709995282951,
+											"parameters": {
+												"name": "\"\"",
+												"start-index": "0",
+												"end-index": "tokencount(OfferIdInput.Text, \",\")-1"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "plan-checkout",
+											"objectClass": "GenvidEOS",
+											"sid": 547626377565290,
+											"parameters": {
+												"offerId": "trim(tokenat(OfferIdInput.Text, loopindex, \",\"))"
+											}
+										}
+									],
+									"sid": 238934599862104
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "checkout",
+											"objectClass": "GenvidEOS",
+											"sid": 579337672248012
+										},
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 411366115016092
+										},
+										{
+											"id": "set-text",
+											"objectClass": "ResultText",
+											"sid": 776054649976822,
+											"parameters": {
+												"text": "Functions.Beautify(GenvidEOS.Transaction)"
+											}
+										}
+									],
+									"sid": 143474035753717
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "evaluate-expression",
+									"objectClass": "System",
+									"sid": 254264814624977,
+									"parameters": {
+										"value": "GenvidEOS.OffersCount = 0 | tokencount(OfferIdInput.Text, \",\") = 0"
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 860264149216110
+								}
+							],
+							"actions": [],
+							"sid": 370538382309673,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Button",
+											"sid": 673273881423857,
+											"parameters": {
+												"tags": "\"Checkout\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-enabled",
+											"objectClass": "Button",
+											"sid": 311951888311434,
+											"parameters": {
+												"mode": "disabled"
+											}
+										}
+									],
+									"sid": 290838655744760
+								}
+							],
+							"isOrBlock": true
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "evaluate-expression",
+									"objectClass": "System",
+									"sid": 423338595309446,
+									"parameters": {
+										"value": "GenvidEOS.OffersCount = 0 | tokencount(OfferIdInput.Text, \",\") = 0"
+									},
+									"isInverted": true
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 684241773799878
+								}
+							],
+							"actions": [],
+							"sid": 642924575859659,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Button",
+											"sid": 354424476288088,
+											"parameters": {
+												"tags": "\"Checkout\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-enabled",
+											"objectClass": "Button",
+											"sid": 540179684924971,
+											"parameters": {
+												"mode": "enabled"
+											}
+										}
+									],
+									"sid": 950988818374162
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 126242585987624,
+									"parameters": {
+										"first-value": "GenvidEOS.Transaction",
+										"comparison": 0,
+										"second-value": "\"null\""
+									}
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 718265776384566
+								}
+							],
+							"actions": [],
+							"sid": 460604268863404,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Button",
+											"sid": 175736613093086,
+											"parameters": {
+												"tags": "\"Transaction\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-enabled",
+											"objectClass": "Button",
+											"sid": 692209410262712,
+											"parameters": {
+												"mode": "disabled"
+											}
+										}
+									],
+									"sid": 417744508692731
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 352544749983669,
+									"parameters": {
+										"first-value": "GenvidEOS.Transaction",
+										"comparison": 0,
+										"second-value": "\"null\""
+									},
+									"isInverted": true
+								},
+								{
+									"id": "trigger-once-while-true",
+									"objectClass": "System",
+									"sid": 628391862226664
+								}
+							],
+							"actions": [],
+							"sid": 102730491754200,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "has-tags",
+											"objectClass": "Button",
+											"sid": 841648965287790,
+											"parameters": {
+												"tags": "\"Transaction\""
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-enabled",
+											"objectClass": "Button",
+											"sid": 427631206144197,
+											"parameters": {
+												"mode": "enabled"
+											}
+										}
+									],
+									"sid": 861288509479048
+								}
+							]
+						}
+					],
+					"sid": 587114513997137
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Ecom Error Handling",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-get-entitlements-error",
+									"objectClass": "GenvidEOS",
+									"sid": 209479053897195
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 105223078097206,
+									"parameters": {
+										"text": "\"Error getting entitlements\""
+									}
+								}
+							],
+							"sid": 711060433483326
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-get-offers-error",
+									"objectClass": "GenvidEOS",
+									"sid": 561583326530038
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 751746033438274,
+									"parameters": {
+										"text": "\"Error getting offers\""
+									}
+								}
+							],
+							"sid": 893589216830395
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-checkout-error",
+									"objectClass": "GenvidEOS",
+									"sid": 932175660086959
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 168405747332765,
+									"parameters": {
+										"text": "\"Error checking out entitlements\""
+									}
+								}
+							],
+							"sid": 713678978821300
+						}
+					],
+					"sid": 435065957976901
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Ecom Success Handling",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-get-entitlements-success",
+									"objectClass": "GenvidEOS",
+									"sid": 293291695889903
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 505946981518253,
+									"parameters": {
+										"text": "\"Success getting entitlements\""
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 291316120477112,
+									"parameters": {
+										"type": "log",
+										"message": "\"Entitlements: \" & Functions.Beautify(GenvidEOS.Entitlements)"
+									}
+								}
+							],
+							"sid": 995543016240423
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-get-offers-success",
+									"objectClass": "GenvidEOS",
+									"sid": 278674648625616
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 660808450400572,
+									"parameters": {
+										"text": "\"Success getting offers\""
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 433740587547461,
+									"parameters": {
+										"type": "log",
+										"message": "\"Offers: \" & Functions.Beautify(GenvidEOS.Offers)"
+									}
+								}
+							],
+							"sid": 385661122627329
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-checkout-success",
+									"objectClass": "GenvidEOS",
+									"sid": 464078910502268
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 371350280708367,
+									"parameters": {
+										"text": "\"Successful checkout\""
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 710742828065130,
+									"parameters": {
+										"type": "log",
+										"message": "\"Transaction: \" & Functions.Beautify(GenvidEOS.Transaction)"
+									}
+								}
+							],
+							"sid": 517801609167228
+						}
+					],
+					"sid": 357499819229394
+				}
+			],
+			"sid": 975124057176965
+		}
+	],
+	"sid": 170496147113614
+}

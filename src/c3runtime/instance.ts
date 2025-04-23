@@ -13,6 +13,10 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
   _username = "";
   _token = "";
   _loginStatus: LoginState = "loggedOut";
+  _entitlements: Array<EosEntitlement> = [];
+  _offers: Array<EosOffer> = [];
+  _checkoutOffers: Array<string> = [];
+  _checkoutTransaction?: EosTransaction;
 
   constructor() {
     // Note that DOM_COMPONENT_ID must be passed to the base class as an additional parameter.
@@ -24,6 +28,11 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     this._username = "";
     this._token = "";
     this._loginStatus = "loggedOut";
+    // ecom
+    this._entitlements = [];
+    this._offers = [];
+    this._checkoutOffers = [];
+    this._checkoutTransaction = undefined;
 
     this._addDOMMessageHandler("on-state-change", (e) =>
       this._onStateChange(e)
@@ -77,6 +86,42 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     }
   }
 
+  _onGetEntitlements(value: JSONObject) {
+    this._entitlements = value.entitlements as unknown as Array<EosEntitlement>;
+  }
+
+  _onGetOffers(value: JSONObject) {
+    this._offers = value.offers as unknown as Array<EosOffer>;
+  }
+
+  _getOfferByIndex(index: number, withItems: boolean = true) {
+    const { ...offer } = this._offers[index];
+    if (offer && !withItems) {
+      offer.Items = [];
+    }
+    return offer;
+  }
+
+  _getOfferById(id: string, withItems: boolean = true) {
+    const { ...offer } = this._offers.find(o => o.Id === id);
+    if (offer && !withItems) {
+      offer.Items = [];
+    }
+    return offer;
+  }
+
+  _getOfferItemsByIndex(index: number) {
+    return this._offers[index]?.Items ?? [];
+  }
+
+  _getOfferItemsById(id: string) {
+    return this._offers.find(o => o.Id === id)?.Items ?? [];
+  }
+
+  _getTransactionsEntitlements(): Array<EosEntitlement> {
+    return this._checkoutTransaction?.NewEntitlements ?? [];
+  }
+
   async _updateState() {
     try {
       const state = await this._postToDOMAsync("update") as JSONObject;
@@ -95,13 +140,24 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     super._release();
   }
 
-  _getDebuggerProperties(): any[] {
+  _getSDKDebuggerProperties(): any[] {
     const prefix = "plugins.genvid_eos.debugger.";
     return [
       {
         title: prefix + "title",
         properties: [
           { name: prefix + "initialized", value: this._initialized },
+        ],
+      },
+    ];
+  }
+
+  _getAuthDebuggerProperties(): any[] {
+    const prefix = "plugins.genvid_eos.debugger.auth.";
+    return [
+      {
+        title: prefix + "title",
+        properties: [
           { name: prefix + "state", value: this._loginStatus },
           { name: prefix + "logged", value: this._loggedIn },
           { name: prefix + "username", value: this._username },
@@ -110,6 +166,74 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
         ],
       },
     ];
+  }
+
+  _getEcomEntitlementsDebuggerProperties() {
+    if (this._entitlements.length > 0) {
+      const prefix = "plugins.genvid_eos.debugger.ecom.entitlements.";
+      return [
+        {
+          title: prefix + 'title',
+          properties: this._entitlements.map((e, i) => ({
+            name: `$Entitlements[${i}]`, value: JSON.stringify(e)
+          }))
+        }
+      ];
+    } else {
+      return [];
+    }
+  }
+  _getEcomOffersDebuggerProperties() {
+    if (this._offers.length > 0) {
+      const prefix = "plugins.genvid_eos.debugger.ecom.offers.";
+      return [
+        {
+          title: prefix + 'title',
+          properties: this._entitlements.map((o, i) => ({
+            name: `$Offers[${i}]`, value: JSON.stringify(o)
+          }))
+        }
+      ];
+    } else {
+       return [];
+    }
+  }
+
+  _getEcomCheckoutDebuggerProperties() {
+    if (this._checkoutTransaction) {
+      const prefix = "plugins.genvid_eos.debugger.ecom.checkout.";
+      const entitlements = this._checkoutTransaction!.NewEntitlements?.map((e, i) => ({
+        name: `$NewEntitlement[${i}]`, value: JSON.stringify(e)
+      }));
+      return [
+        {
+          title: prefix + 'title',
+          properties: {
+            name: prefix + 'transactionId', value: this._checkoutTransaction?.TransactionId ?? "",
+            ...entitlements
+          }
+        }
+      ];
+    } else {
+      return [];
+    }
+  }
+
+  _getEcomDebuggerProperties(): any[] {
+    const prefix = "plugins.genvid_eos.debugger.ecom.";
+    return [
+      ...this._getEcomEntitlementsDebuggerProperties(),
+      ...this._getEcomOffersDebuggerProperties(),
+      ...this._getEcomCheckoutDebuggerProperties(),
+    ]
+  }
+
+  _getDebuggerProperties(): any[] {
+    return [
+      ...this._getSDKDebuggerProperties(),
+      ...this._getAuthDebuggerProperties(),
+      ...this._getEcomDebuggerProperties()
+    ]
   }
 
   _saveToJson() {

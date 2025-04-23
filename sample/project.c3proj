@@ -26,7 +26,7 @@
 			"name": "GenvidEOS",
 			"author": "Genvid Technologies, LLC",
 			"bundled": false,
-			"version": "1.0.0.0",
+			"version": "1.0.1.0",
 			"sdkVersion": 2
 		},
 		{
@@ -49,6 +49,13 @@
 			"name": "Text",
 			"author": "Scirra",
 			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TextBox",
+			"name": "Text input",
+			"author": "Scirra",
+			"bundled": false
 		}
 	],
 	"uniqueId": "04ougpuz7hg",
@@ -61,7 +68,9 @@
 			"Logs",
 			"Browser",
 			"JWT",
-			"LogsBackground"
+			"LogsBackground",
+			"OfferIdInput",
+			"ResultText"
 		],
 		"subfolders": []
 	},
@@ -73,13 +82,16 @@
 	},
 	"layouts": {
 		"items": [
-			"Layout 1"
+			"AuthLayout",
+			"EcomLayout"
 		],
 		"subfolders": []
 	},
 	"eventSheets": {
 		"items": [
-			"Event sheet 1"
+			"AuthEvents",
+			"EcomEvents",
+			"CommonEvents"
 		],
 		"subfolders": []
 	},
@@ -194,7 +206,7 @@
 	},
 	"properties": {
 		"description": "EOS Login Sample",
-		"version": "1.0.0.0",
+		"version": "1.0.1.0",
 		"autoIncrementVersion": false,
 		"author": "Genvid Technologies, LLC",
 		"authorEmail": "support@genvidtech.com",

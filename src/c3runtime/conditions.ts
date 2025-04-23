@@ -11,6 +11,10 @@ C3.Plugins.Genvid_EOS.Cnds =
 	OnInitializationError(this: SDKInstanceClass) {
 		return true;
 	},
+	IsInitialized(this: SDKInstanceClass) {
+		return this._initialized;
+	},
+	// auth module
 	OnLoginPersistentSuccess(this: SDKInstanceClass) {
 		return true;
 	},
@@ -35,7 +39,25 @@ C3.Plugins.Genvid_EOS.Cnds =
 	IsLoggedIn(this: SDKInstanceClass) {
 		return this._loggedIn;
 	},
-	IsInitialized(this: SDKInstanceClass) {
-		return this._initialized;
+	// ecom - entitlements
+	OnGetEntitlements(this: SDKInstanceClass) {
+		return true;
+	},
+	OnGetEntitlementsError(this: SDKInstanceClass) {
+		return true;
+	},
+	// ecom - offers
+	OnGetOffers(this: SDKInstanceClass) {
+		return true;
+	},
+	OnGetOffersError(this: SDKInstanceClass) {
+		return true;
+	},
+	// ecom - checkout
+	OnCheckout(this: SDKInstanceClass) {
+		return true;
+	},
+	OnCheckoutError(this: SDKInstanceClass) {
+		return true;
 	}
 };

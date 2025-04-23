@@ -1,6 +1,6 @@
 ﻿{
     "$schema": "../SDK/plugin-sdk/v2/aces.schema.json",
-    "custom": {
+    "sdk": {
         "conditions": [
             {
                 "id": "on-initialization-success",
@@ -12,6 +12,35 @@
                 "scriptName": "OnInitializationError",
                 "isTrigger": true
             },
+            {
+                "id": "is-initialized",
+                "scriptName": "IsInitialized",
+                "highlight": true
+            }
+        ],
+        "actions": [
+            {
+                "id": "initialize",
+                "scriptName": "Initialize",
+                "highlight": true,
+                "isAsync": true
+            },
+            {
+                "id": "on-network-change",
+                "scriptName": "OnNetworkChange",
+                "params": [
+                    {
+                        "id": "connected",
+                        "type": "boolean",
+                        "initialValue": "true"
+                    }
+                ]
+            }
+        ],
+        "expressions": []
+    },
+    "auth": {
+        "conditions": [
             {
                 "id": "on-login-persistent-success",
                 "scriptName": "OnLoginPersistentSuccess",
@@ -53,30 +82,9 @@
                 "id": "is-logged-in",
                 "scriptName": "IsLoggedIn",
                 "highlight": true
-            },
-            {
-                "id": "is-initialized",
-                "scriptName": "IsInitialized"
             }
         ],
         "actions": [
-            {
-                "id": "initialize",
-                "scriptName": "Initialize",
-                "highlight": true,
-                "isAsync": true
-            },
-            {
-                "id": "on-network-change",
-                "scriptName": "OnNetworkChange",
-                "params": [
-                    {
-                        "id": "connected",
-                        "type": "boolean",
-                        "initialValue": "true"
-                    }
-                ]
-            },
             {
                 "id": "login-persistent",
                 "scriptName": "LoginPersistent",
@@ -114,6 +122,275 @@
                 "id": "get-token",
                 "expressionName": "Token",
                 "returnType": "string"
+            }
+        ]
+    },
+    "ecom-entitlements": {
+        "conditions": [
+            {
+                "id": "on-get-entitlements-success",
+                "scriptName": "OnGetEntitlements",
+                "isTrigger": true
+            },
+            {
+                "id": "on-get-entitlements-error",
+                "scriptName": "OnGetEntitlementsError",
+                "isTrigger": true
+            }
+        ],
+        "actions": [
+            {
+                "id": "get-entitlements",
+                "scriptName": "GetEntitlements",
+                "isAsync": true,
+                "highlight": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "entitlements",
+                "expressionName": "Entitlements",
+                "returnType": "string"
+            },
+            {
+                "id": "entitlements-count",
+                "expressionName": "EntitlementCount",
+                "returnType": "number"
+            },
+            {
+                "id": "entitlement-by-index",
+                "expressionName": "EntitlementByIndex",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "index",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "entitlement-by-id",
+                "expressionName": "EntitlementById",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "string"
+                    }
+                ]
+            },
+            {
+                "id": "entitlement-by-name",
+                "expressionName": "EntitlementByName",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "name",
+                        "type": "string"
+                    }
+                ]
+            }
+        ]
+    },
+    "ecom-offers": {
+        "conditions": [
+            {
+                "id": "on-get-offers-success",
+                "scriptName": "OnGetOffers",
+                "isTrigger": true
+            },
+            {
+                "id": "on-get-offers-error",
+                "scriptName": "OnGetOffersError",
+                "isTrigger": true
+            }
+        ],
+        "actions": [
+            {
+                "id": "get-offers",
+                "scriptName": "GetOffers",
+                "isAsync": true,
+                "highlight": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "offers",
+                "expressionName": "Offers",
+                "returnType": "string"
+            },
+            {
+                "id": "offer-by-id",
+                "expressionName": "OfferById",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "string"
+                    },
+                    {
+                        "id": "withItems",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "offers-count",
+                "expressionName": "OffersCount",
+                "returnType": "number"
+            },
+            {
+                "id": "offer-by-index",
+                "expressionName": "OfferByIndex",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "index",
+                        "type": "number"
+                    },
+                    {
+                        "id": "withItems",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "offer-items-by-index",
+                "expressionName": "OfferItemsByIndex",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "index",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "offer-items-count-by-index",
+                "expressionName": "OfferItemsCountByIndex",
+                "returnType": "number",
+                "params": [
+                    {
+                        "id": "index",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "offer-item-by-index",
+                "expressionName": "OfferItemByIndex",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "offerIndex",
+                        "type": "number"
+                    },
+                    {
+                        "id": "itemIndex",
+                        "type": "number"
+                    }
+                ]
+            },
+            {
+                "id": "offer-items-by-id",
+                "expressionName": "OfferItemsById",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "string"
+                    }
+                ]
+            },
+            {
+                "id": "offer-items-count-by-id",
+                "expressionName": "OfferItemsCountById",
+                "returnType": "number",
+                "params": [
+                    {
+                        "id": "id",
+                        "type": "string"
+                    }
+                ]
+            },
+            {
+                "id": "offer-item-by-id",
+                "expressionName": "OfferItemById",
+                "returnType": "string",
+                "params": [
+                    {
+                        "id": "offerId",
+                        "type": "string"
+                    },
+                    {
+                        "id": "itemIndex",
+                        "type": "number"
+                    }
+                ]
+            }
+        ]
+    },
+    "ecom-checkout": {
+        "conditions": [
+            {
+                "id": "on-checkout-success",
+                "scriptName": "OnCheckout",
+                "isTrigger": true
+            },
+            {
+                "id": "on-checkout-error",
+                "scriptName": "OnCheckoutError",
+                "isTrigger": true
+            }
+        ],
+        "actions": [
+            {
+                "id": "plan-checkout",
+                "scriptName": "PlanCheckout",
+                "params": [
+                    {
+                        "id": "offerId",
+                        "type": "string"
+                    }
+                ]
+            },
+            {
+                "id": "checkout",
+                "scriptName": "Checkout",
+                "isAsync": true
+            }
+        ],
+        "expressions": [
+            {
+                "id": "transaction",
+                "expressionName": "Transaction",
+                "returnType": "string"
+            },
+            {
+                "id": "transaction-id",
+                "expressionName": "TransactionId",
+                "returnType": "string"
+            },
+            {
+                "id": "transaction-entitlements",
+                "expressionName": "TransactionEntitlements",
+                "returnType": "string"
+            },
+            {
+                "id": "transaction-entitlements-count",
+                "expressionName": "TransactionEntitlementsCount",
+                "returnType": "number"
+            },
+            {
+                "id": "transaction-entitlement-by-index",
+                "returnType": "string",
+                "expressionName": "TransactionEntitlementByIndex",
+                "params": [
+                    {
+                        "id": "index",
+                        "type": "number"
+                    }
+                ]
             }
         ]
     }

@@ -6,7 +6,7 @@
 	"type": "plugin",
 	"name": "Genvid EOS",
 	"id": "Genvid_EOS",
-	"version": "1.0.0.1",
+	"version": "1.0.1.0",
 	"author": "Genvid Technologies, LLC",
 	"website": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
 	"documentation": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",

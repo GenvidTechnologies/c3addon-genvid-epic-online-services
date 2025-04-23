@@ -19,6 +19,10 @@
                 ["login",               async e => this._OnLogin(e)],
                 ["logout",              async () => this._OnLogout() ],
                 ["update",              async () => this._OnUpdate() ],
+                // ECom
+                ["get-entitlements",    async () => this._OnGetEntitlements() ],
+                ["get-offers",          async () => this._OnGetOffers() ],
+                ["checkout",            async (r) => this._OnCheckout(r) ]
             ]);
         }
 
@@ -107,6 +111,23 @@
                 result.token = await this.auth['getAuthToken']();
             }
             return result;
+        }
+
+        async _OnGetEntitlements(): Promise<JSONObject> {
+            return {
+                entitlements: [... (await this.ecom['queryEntitlements']()).map(x => x as unknown as JSONObject)]
+            };
+        }
+
+        async _OnGetOffers(): Promise<JSONObject> {
+            return {
+                offers: [... (await this.ecom['queryOffers']()).map(x => x as unknown as JSONObject)]
+            };
+        }
+
+        async _OnCheckout(data: JSONValue): Promise<JSONObject> {
+            const queries = (data as JSONObject)['offers'] as Array<string>;
+            return (await this.ecom['checkout'](queries)) as unknown as JSONObject;
         }
     };
 

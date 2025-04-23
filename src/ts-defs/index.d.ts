@@ -11,6 +11,13 @@
 interface EosItem {
     Id: string;
     Title: string;
+    Description: string;
+    LongDescription: string;
+    TechnicalDetails: string;
+    Developer: string;
+    ItemType: "Durable" | "Consumable" | "Other";
+    EntitlementName: string;
+    EntitlementEnd: string;
 }
 
 interface EosOffer {
@@ -53,7 +60,7 @@ interface EOSLoginStatus {
     status: "loggedIn" | "loggedOut" | "inProgress";
 }
 
-type onLoginChanged = function (EOSLoginStatus): void;
+type onLoginChanged = (status: EOSLoginStatus) => void;
 
 interface EosAuth {
     isLoggedIn(): Promise<boolean>;

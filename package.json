@@ -10,6 +10,7 @@
     "watch": "tsc -p src --outDir dist -w",
     "devmode": "http-server dist --cors",
     "prezip:windows": "shx rm -f Genvid_EOS.c3addon",
-    "zip:windows": "cd dist && 7z.exe a -tzip -r ..\\Genvid_EOS.c3addon ."
+    "zip:windows": "cd dist && 7z.exe a -tzip -r ..\\Genvid_EOS.c3addon .",
+    "all:windows": "npm run build && npm run zip:windows"
   }
 }

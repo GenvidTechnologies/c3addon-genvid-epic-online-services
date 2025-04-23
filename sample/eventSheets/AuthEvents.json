@@ -1,6 +1,10 @@
 {
-	"name": "Event sheet 1",
+	"name": "AuthEvents",
 	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "CommonEvents"
+		},
 		{
 			"eventType": "block",
 			"conditions": [
@@ -38,6 +42,12 @@
 					"id": "on-start-of-layout",
 					"objectClass": "System",
 					"sid": 746332606475780
+				},
+				{
+					"id": "is-initialized",
+					"objectClass": "GenvidEOS",
+					"sid": 294715817720309,
+					"isInverted": true
 				}
 			],
 			"actions": [
@@ -56,58 +66,6 @@
 				}
 			],
 			"sid": 407379145288728
-		},
-		{
-			"eventType": "block",
-			"conditions": [
-				{
-					"id": "on-went-online",
-					"objectClass": "Browser",
-					"sid": 741361461900636
-				},
-				{
-					"id": "is-initialized",
-					"objectClass": "GenvidEOS",
-					"sid": 204365304270735
-				}
-			],
-			"actions": [
-				{
-					"id": "on-network-change",
-					"objectClass": "GenvidEOS",
-					"sid": 615879583077037,
-					"parameters": {
-						"connected": true
-					}
-				}
-			],
-			"sid": 660976624026805
-		},
-		{
-			"eventType": "block",
-			"conditions": [
-				{
-					"id": "on-went-offline",
-					"objectClass": "Browser",
-					"sid": 448751934668311
-				},
-				{
-					"id": "is-initialized",
-					"objectClass": "GenvidEOS",
-					"sid": 551348501483327
-				}
-			],
-			"actions": [
-				{
-					"id": "on-network-change",
-					"objectClass": "GenvidEOS",
-					"sid": 794107045789335,
-					"parameters": {
-						"connected": false
-					}
-				}
-			],
-			"sid": 837512157179724
 		},
 		{
 			"eventType": "group",
@@ -250,6 +208,30 @@
 								}
 							],
 							"sid": 844980158525417
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 515600631782406,
+									"parameters": {
+										"tags": "\"Ecom\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 731402989521349,
+									"parameters": {
+										"mode": "enabled"
+									}
+								}
+							],
+							"sid": 334778296335959
 						}
 					]
 				},
@@ -333,6 +315,30 @@
 								}
 							],
 							"sid": 959864264162132
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 765870316858600,
+									"parameters": {
+										"tags": "\"Ecom\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-enabled",
+									"objectClass": "Button",
+									"sid": 800419069097641,
+									"parameters": {
+										"mode": "disabled"
+									}
+								}
+							],
+							"sid": 479824215037058
 						}
 					]
 				},
@@ -409,6 +415,30 @@
 								}
 							],
 							"sid": 616822225965896
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "has-tags",
+									"objectClass": "Button",
+									"sid": 510401671778168,
+									"parameters": {
+										"tags": "\"Ecom\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 495073488732246,
+									"parameters": {
+										"layout": "EcomLayout"
+									}
+								}
+							],
+							"sid": 626247244248522
 						}
 					]
 				}
@@ -1031,167 +1061,6 @@
 				}
 			],
 			"sid": 226187563211597
-		},
-		{
-			"eventType": "group",
-			"disabled": false,
-			"title": "JWT",
-			"description": "",
-			"isActiveOnStart": true,
-			"children": [
-				{
-					"functionName": "b64decode",
-					"functionDescription": "",
-					"functionCategory": "",
-					"functionReturnType": "string",
-					"functionCopyPicked": false,
-					"functionIsAsync": false,
-					"functionParameters": [
-						{
-							"name": "b64string",
-							"type": "string",
-							"initialValue": "",
-							"comment": "",
-							"sid": 541274293334751
-						}
-					],
-					"eventType": "function-block",
-					"conditions": [],
-					"actions": [
-						{
-							"type": "script",
-							"script": [
-								"runtime.setReturnValue(atob(localVars.b64string));"
-							]
-						}
-					],
-					"sid": 683326800674164
-				},
-				{
-					"aceType": "action",
-					"aceName": "Clear",
-					"objectClass": "JWT",
-					"functionDescription": "",
-					"functionCategory": "",
-					"functionReturnType": "none",
-					"functionCopyPicked": false,
-					"functionIsAsync": false,
-					"functionParameters": [],
-					"eventType": "custom-ace-block",
-					"conditions": [],
-					"actions": [
-						{
-							"id": "set-instvar-value",
-							"objectClass": "JWT",
-							"sid": 767480841344936,
-							"parameters": {
-								"instance-variable": "token",
-								"value": "\"\""
-							}
-						},
-						{
-							"id": "parse",
-							"objectClass": "JWT",
-							"sid": 293102585911785,
-							"parameters": {
-								"data": "\"null\""
-							}
-						}
-					],
-					"sid": 996993939855020
-				},
-				{
-					"aceType": "action",
-					"aceName": "LoadToken",
-					"objectClass": "JWT",
-					"functionDescription": "",
-					"functionCategory": "",
-					"functionReturnType": "none",
-					"functionCopyPicked": false,
-					"functionIsAsync": false,
-					"functionParameters": [
-						{
-							"name": "token",
-							"type": "string",
-							"initialValue": "",
-							"comment": "",
-							"sid": 787462513445348
-						}
-					],
-					"eventType": "custom-ace-block",
-					"conditions": [],
-					"actions": [
-						{
-							"id": "parse",
-							"objectClass": "JWT",
-							"sid": 391261801080811,
-							"parameters": {
-								"data": "\"{}\""
-							}
-						},
-						{
-							"id": "set-instvar-value",
-							"objectClass": "JWT",
-							"sid": 157787593974551,
-							"parameters": {
-								"instance-variable": "token",
-								"value": "token"
-							}
-						},
-						{
-							"id": "set-json",
-							"objectClass": "JWT",
-							"sid": 130357564984115,
-							"parameters": {
-								"path": "\"header\"",
-								"json": "Functions.b64decode(tokenat(token, 0, \".\"))"
-							}
-						},
-						{
-							"id": "set-json",
-							"objectClass": "JWT",
-							"sid": 542419562142864,
-							"parameters": {
-								"path": "\"claim\"",
-								"json": "Functions.b64decode(tokenat(token, 1, \".\"))"
-							}
-						},
-						{
-							"id": "set-value",
-							"objectClass": "JWT",
-							"sid": 116361175844919,
-							"parameters": {
-								"path": "\"signature\"",
-								"value": "tokenat(token, 2, \".\")"
-							}
-						}
-					],
-					"sid": 426705860118308
-				},
-				{
-					"eventType": "block",
-					"conditions": [
-						{
-							"id": "on-parse-error",
-							"objectClass": "JWT",
-							"sid": 661177084306833
-						}
-					],
-					"actions": [
-						{
-							"id": "log",
-							"objectClass": "Browser",
-							"sid": 978854763185410,
-							"parameters": {
-								"type": "error",
-								"message": "\"Error parsing token: \" & JWT.token"
-							}
-						}
-					],
-					"sid": 379466803907947
-				}
-			],
-			"sid": 784368778763806
 		}
 	],
 	"sid": 483712092130385

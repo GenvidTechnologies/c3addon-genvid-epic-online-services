@@ -74,6 +74,9 @@ C3.Plugins.Genvid_EOS.Exps =
 			this._getOfferItemsById(offerId)[itemIndex] ?? null);
 	},
 	// ecom - checkout
+	TransactionTag(this: SDKInstanceClass) {
+		return this._checkoutTag ?? "";
+	},
 	Transaction(this: SDKInstanceClass) {
 		return JSON.stringify(this._checkoutTransaction ?? null);
 	},

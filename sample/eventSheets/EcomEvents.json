@@ -13,6 +13,16 @@
 			"isActiveOnStart": true,
 			"children": [
 				{
+					"eventType": "variable",
+					"name": "checkoutTag",
+					"type": "string",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": true,
+					"isConstant": false,
+					"sid": 638740630630723
+				},
+				{
 					"eventType": "group",
 					"disabled": false,
 					"title": "Ecom Events Buttons",
@@ -204,6 +214,15 @@
 									"parameters": {
 										"text": "Functions.Beautify(GenvidEOS.Transaction)"
 									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 279670662670179,
+									"parameters": {
+										"variable": "checkoutTag",
+										"value": "str(int(checkoutTag)+1)"
+									}
 								}
 							],
 							"sid": 946154236518905,
@@ -241,7 +260,10 @@
 										{
 											"id": "checkout",
 											"objectClass": "GenvidEOS",
-											"sid": 579337672248012
+											"sid": 998486706666204,
+											"parameters": {
+												"tag": "checkoutTag"
+											}
 										},
 										{
 											"id": "wait-for-previous-actions",
@@ -510,7 +532,10 @@
 								{
 									"id": "on-checkout-error",
 									"objectClass": "GenvidEOS",
-									"sid": 932175660086959
+									"sid": 932175660086959,
+									"parameters": {
+										"tag": "\"\""
+									}
 								}
 							],
 							"actions": [
@@ -601,29 +626,76 @@
 								{
 									"id": "on-checkout-success",
 									"objectClass": "GenvidEOS",
-									"sid": 464078910502268
+									"sid": 221127915464459,
+									"parameters": {
+										"tag": "checkoutTag"
+									}
 								}
 							],
 							"actions": [
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 371350280708367,
+									"sid": 762008541031244,
 									"parameters": {
-										"text": "\"Successful checkout\""
+										"text": "\"Successful checkout \" & GenvidEOS.TransactionTag"
 									}
 								},
 								{
 									"id": "log",
 									"objectClass": "Browser",
-									"sid": 710742828065130,
+									"sid": 544748792765133,
 									"parameters": {
 										"type": "log",
-										"message": "\"Transaction: \" & Functions.Beautify(GenvidEOS.Transaction)"
+										"message": "\"Checkout \" & GenvidEOS.TransactionTag & \": \" & Functions.Beautify(GenvidEOS.Transaction)"
 									}
 								}
 							],
 							"sid": 517801609167228
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-any-checkout-success",
+									"objectClass": "GenvidEOS",
+									"sid": 110923752067322
+								}
+							],
+							"actions": [
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 183876856327503,
+									"parameters": {
+										"type": "log",
+										"message": "\"Successful Checkout \" & GenvidEOS.TransactionTag"
+									}
+								}
+							],
+							"sid": 744470773218419
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-any-checkout-error",
+									"objectClass": "GenvidEOS",
+									"sid": 227363377814164
+								}
+							],
+							"actions": [
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 565150577019339,
+									"parameters": {
+										"type": "log",
+										"message": "\"Failure of Checkout \" & GenvidEOS.TransactionTag"
+									}
+								}
+							],
+							"sid": 487137290019353
 						}
 					],
 					"sid": 357499819229394

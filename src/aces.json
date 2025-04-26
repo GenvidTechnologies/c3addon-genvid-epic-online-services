@@ -335,11 +335,35 @@
             {
                 "id": "on-checkout-success",
                 "scriptName": "OnCheckout",
-                "isTrigger": true
+                "isTrigger": true,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
             },
             {
                 "id": "on-checkout-error",
                 "scriptName": "OnCheckoutError",
+                "isTrigger": true,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "on-any-checkout-success",
+                "scriptName": "OnAnyCheckout",
+                "isTrigger": true
+            },
+            {
+                "id": "on-any-checkout-error",
+                "scriptName": "OnAnyCheckoutError",
                 "isTrigger": true
             }
         ],
@@ -357,7 +381,14 @@
             {
                 "id": "checkout",
                 "scriptName": "Checkout",
-                "isAsync": true
+                "isAsync": true,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
             }
         ],
         "expressions": [
@@ -369,6 +400,11 @@
             {
                 "id": "transaction-id",
                 "expressionName": "TransactionId",
+                "returnType": "string"
+            },
+            {
+                "id": "transaction-tag",
+                "expressionName": "TransactionTag",
                 "returnType": "string"
             },
             {

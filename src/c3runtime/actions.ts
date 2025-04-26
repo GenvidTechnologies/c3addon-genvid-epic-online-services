@@ -71,16 +71,20 @@ C3.Plugins.Genvid_EOS.Acts = {
   PlanCheckout(this: SDKInstanceClass, offerId: string) {
     this._checkoutOffers.push(offerId);
   },
-  Checkout(this: SDKInstanceClass) {
+  Checkout(this: SDKInstanceClass, tag: string) {
     const offers = this._checkoutOffers;
     this._checkoutOffers = [];
+    this._checkoutTag = tag;
+    this._checkoutTransaction = undefined;
     return this._postToDOMAsync("checkout", { offers })
       .then((result) => {
         this._checkoutTransaction = result as unknown as EosTransaction;
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckout);
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckout);
       })
       .catch(() => {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckoutError);
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckoutError);
       });
   }
 };

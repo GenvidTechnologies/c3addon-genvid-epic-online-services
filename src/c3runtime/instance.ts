@@ -17,6 +17,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
   _offers: Array<EosOffer> = [];
   _checkoutOffers: Array<string> = [];
   _checkoutTransaction?: EosTransaction;
+  _checkoutTag?: string;
 
   constructor() {
     // Note that DOM_COMPONENT_ID must be passed to the base class as an additional parameter.
@@ -33,6 +34,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     this._offers = [];
     this._checkoutOffers = [];
     this._checkoutTransaction = undefined;
+    this._checkoutTag = undefined;
 
     this._addDOMMessageHandler("on-state-change", (e) =>
       this._onStateChange(e)

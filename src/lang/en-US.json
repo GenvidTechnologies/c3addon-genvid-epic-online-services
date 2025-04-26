@@ -93,14 +93,36 @@
 						"description": "Calls when an error occured while retrieving offers"
 					},
 					"on-checkout-success": {
-						"display-text": "On Checkout",
+						"display-text": "On Checkout {0}",
 						"list-name": "On Checkout",
-						"description": "Calls when the purchase is successful"
+						"description": "Calls when the purchase is successful",
+						"params": {
+							"tag": {
+								"name": "tag",
+								"desc": "Tag of the purchase"
+							}
+						}
 					},
 					"on-checkout-error": {
-						"display-text": "On Checkout failure",
+						"display-text": "On Checkout {0} failure",
 						"list-name": "On Checkout failure",
-						"description": "Calls when a purchase fail"
+						"description": "Calls when a purchase fail",
+						"params": {
+							"tag": {
+								"name": "tag",
+								"desc": "Tag of the purchase"
+							}
+						}
+					},
+					"on-any-checkout-success": {
+						"display-text": "On Any Checkout",
+						"list-name": "On Any Checkout",
+						"description": "Calls when any purchase is successful"
+					},
+					"on-any-checkout-error": {
+						"display-text": "On Any Checkout failure",
+						"list-name": "On Any Checkout failure",
+						"description": "Calls when any purchase fail"
 					}
 				},
 				"actions": {
@@ -157,9 +179,15 @@
 						}
 					},
 					"checkout": {
-						"display-text": "Checkout",
+						"display-text": "Checkout {0}",
 						"list-name": "Checkout",
-						"description": "Checkout the offers previously planned"
+						"description": "Checkout the offers previously planned",
+						"params": {
+							"tag": {
+								"name": "tag",
+								"desc": "Tag for the purchase"
+							}
+						}
 					}
 				},
 				"expressions": {
@@ -328,6 +356,10 @@
 					"transaction-id": {
 						"description": "Returns the last transaction Id",
 						"translated-name": "TransactionId"
+					},
+					"transaction-tag": {
+						"description": "Returns the last transaction tag",
+						"translated-name": "TransactionTag"
 					},
 					"transaction-entitlements": {
 						"description": "Returns the new entitlements as JSON",

@@ -42,30 +42,63 @@
 					"id": "on-start-of-layout",
 					"objectClass": "System",
 					"sid": 746332606475780
-				},
-				{
-					"id": "is-initialized",
-					"objectClass": "GenvidEOS",
-					"sid": 294715817720309,
-					"isInverted": true
 				}
 			],
-			"actions": [
+			"actions": [],
+			"sid": 407379145288728,
+			"children": [
 				{
-					"id": "set-text",
-					"objectClass": "Logs",
-					"sid": 705086847515631,
-					"parameters": {
-						"text": "\"Initializing the SDK...\""
-					}
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-initialized",
+							"objectClass": "GenvidEOS",
+							"sid": 725022084497654
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 484929885688425,
+							"parameters": {
+								"text": "\"Refreshing...\""
+							}
+						},
+						{
+							"callFunction": "Update Fields",
+							"sid": 320214720454882
+						}
+					],
+					"sid": 348455785117032
 				},
 				{
-					"id": "initialize",
-					"objectClass": "GenvidEOS",
-					"sid": 647379808136019
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 914874222301399
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "Logs",
+							"sid": 479190491813376,
+							"parameters": {
+								"text": "\"Initializing the SDK...\""
+							}
+						},
+						{
+							"id": "initialize",
+							"objectClass": "GenvidEOS",
+							"sid": 818814747800809
+						}
+					],
+					"sid": 746948924020269
 				}
-			],
-			"sid": 407379145288728
+			]
 		},
 		{
 			"eventType": "group",

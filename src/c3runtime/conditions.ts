@@ -54,10 +54,16 @@ C3.Plugins.Genvid_EOS.Cnds =
 		return true;
 	},
 	// ecom - checkout
-	OnCheckout(this: SDKInstanceClass) {
+	OnCheckout(this: SDKInstanceClass, tag: string) {
+		return this._checkoutTag === tag;
+	},
+	OnCheckoutError(this: SDKInstanceClass, tag: string) {
+		return this._checkoutTag === tag;
+	},
+	OnAnyCheckout(this: SDKInstanceClass) {
 		return true;
 	},
-	OnCheckoutError(this: SDKInstanceClass) {
+	OnAnyCheckoutError(this: SDKInstanceClass) {
 		return true;
 	}
 };

@@ -8,7 +8,19 @@
 				"name": "GenvidEOS",
 				"description": "Integration of Epic Online Services API.",
 				"help-url": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
-				"properties": {},
+				"properties": {
+					"console-log-level": {
+						"name": "Console Log Level",
+						"desc": "Forward native logs to that console log level",
+						"items": {
+							"error": "Error",
+							"warn": "Warning",
+							"info": "Info",
+							"debug": "Debug",
+							"none": "None"
+						}
+					}
+				},
 				"aceCategories": {
 					"sdk": "SDK",
 					"auth": "Authentication",
@@ -383,8 +395,9 @@
 				"debugger": {
 					"title": "Genvid EOS",
 					"initialized": "Initialized",
+					"console-log-level": "Log Level",
 					"auth": {
-						"title": "Genvid Eos Auth",
+						"title": "Auth",
 						"state": "Login Status",
 						"logged": "Logged In",
 						"username": "Username",

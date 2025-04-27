@@ -4,7 +4,7 @@ const C3 = globalThis.C3;
 
 C3.Plugins.Genvid_EOS.Acts = {
   Initialize(this: SDKInstanceClass) {
-    return this._postToDOMAsync("initialize", {})
+    return this._postToDOMAsync("initialize", { logLevel: this._logLevel ?? "none" })
       .then(async () => {
         this._initialized = true;
         await this._updateState();

@@ -4,7 +4,25 @@ const C3 = globalThis.C3;
 // It must match the value set in domSide.js as well.
 const DOM_COMPONENT_ID = "Genvid_EOS";
 
+// To circumvent typescript lint warnings
+interface C3DebuggerProperty {
+  name: string,
+  value: number | string | boolean;
+}
+
+interface C3DebuggerPropertiesSection {
+  title: string;
+  properties: C3DebuggerProperty[]
+};
+
 type LoginState = "inProgress" | "loggedIn" | "loggedOut";
+const LogLevels = [
+  "none",
+  "error",
+  "warn",
+  "info",
+  "debug"
+];
 
 class EOSInstance extends globalThis.ISDKInstanceBase {
   _loggedIn = false;
@@ -18,6 +36,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
   _checkoutOffers: Array<string> = [];
   _checkoutTransaction?: EosTransaction;
   _checkoutTag?: string;
+  _logLevel?: string;
 
   constructor() {
     // Note that DOM_COMPONENT_ID must be passed to the base class as an additional parameter.
@@ -35,6 +54,13 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     this._checkoutOffers = [];
     this._checkoutTransaction = undefined;
     this._checkoutTag = undefined;
+
+    this._logLevel = "none";
+    const properties = this._getInitProperties();
+		if (properties)		// note properties may be null in some cases
+		{
+			this._logLevel = LogLevels[properties[0] as number];
+		}
 
     this._addDOMMessageHandler("on-state-change", (e) =>
       this._onStateChange(e)
@@ -142,20 +168,21 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     super._release();
   }
 
-  _getSDKDebuggerProperties(): any[] {
-    const prefix = "plugins.genvid_eos.debugger.";
+  // eslint-disable-next-line: @typescript-eslint/no-explicit-any
+  _getSDKDebuggerProperties(prefix: string): C3DebuggerPropertiesSection[] {
     return [
       {
         title: prefix + "title",
         properties: [
           { name: prefix + "initialized", value: this._initialized },
+          { name: prefix + "console-log-level", value: this._logLevel ?? "none" },
         ],
       },
     ];
   }
 
-  _getAuthDebuggerProperties(): any[] {
-    const prefix = "plugins.genvid_eos.debugger.auth.";
+  _getAuthDebuggerProperties(_prefix: string): C3DebuggerPropertiesSection[] {
+    const prefix = _prefix + "auth.";
     return [
       {
         title: prefix + "title",
@@ -170,9 +197,9 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     ];
   }
 
-  _getEcomEntitlementsDebuggerProperties() {
+  _getEcomEntitlementsDebuggerProperties(_prefix: string): C3DebuggerPropertiesSection[] {
     if (this._entitlements.length > 0) {
-      const prefix = "plugins.genvid_eos.debugger.ecom.entitlements.";
+      const prefix = _prefix + "entitlements.";
       return [
         {
           title: prefix + 'title',
@@ -185,9 +212,9 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
       return [];
     }
   }
-  _getEcomOffersDebuggerProperties() {
+  _getEcomOffersDebuggerProperties(_prefix: string): C3DebuggerPropertiesSection[] {
     if (this._offers.length > 0) {
-      const prefix = "plugins.genvid_eos.debugger.ecom.offers.";
+      const prefix = _prefix + "offers.";
       return [
         {
           title: prefix + 'title',
@@ -201,19 +228,19 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     }
   }
 
-  _getEcomCheckoutDebuggerProperties() {
+  _getEcomCheckoutDebuggerProperties(_prefix: string): C3DebuggerPropertiesSection[] {
     if (this._checkoutTransaction) {
-      const prefix = "plugins.genvid_eos.debugger.ecom.checkout.";
+      const prefix = _prefix + "checkout.";
       const entitlements = this._checkoutTransaction!.NewEntitlements?.map((e, i) => ({
         name: `$NewEntitlement[${i}]`, value: JSON.stringify(e)
       }));
       return [
         {
           title: prefix + 'title',
-          properties: {
-            name: prefix + 'transactionId', value: this._checkoutTransaction?.TransactionId ?? "",
+          properties: [
+            { name: prefix + 'transactionId', value: this._checkoutTransaction?.TransactionId ?? "" },
             ...entitlements
-          }
+          ]
         }
       ];
     } else {
@@ -221,20 +248,21 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     }
   }
 
-  _getEcomDebuggerProperties(): any[] {
-    const prefix = "plugins.genvid_eos.debugger.ecom.";
+  _getEcomDebuggerProperties(_prefix: string): C3DebuggerPropertiesSection[] {
+    const prefix = _prefix + "ecom.";
     return [
-      ...this._getEcomEntitlementsDebuggerProperties(),
-      ...this._getEcomOffersDebuggerProperties(),
-      ...this._getEcomCheckoutDebuggerProperties(),
+      ...this._getEcomEntitlementsDebuggerProperties(prefix),
+      ...this._getEcomOffersDebuggerProperties(prefix),
+      ...this._getEcomCheckoutDebuggerProperties(prefix),
     ]
   }
 
-  _getDebuggerProperties(): any[] {
+  _getDebuggerProperties(): C3DebuggerPropertiesSection[] {
+    const prefix = "plugins.genvid_eos.debugger.";
     return [
-      ...this._getSDKDebuggerProperties(),
-      ...this._getAuthDebuggerProperties(),
-      ...this._getEcomDebuggerProperties()
+      ...this._getSDKDebuggerProperties(prefix),
+      ...this._getAuthDebuggerProperties(prefix),
+      ...this._getEcomDebuggerProperties(prefix)
     ]
   }
 
@@ -244,7 +272,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     };
   }
 
-  _loadFromJson(o: JSONValue) {
+  _loadFromJson(/*o: JSONValue*/) {
     // load state for savegames
   }
 }

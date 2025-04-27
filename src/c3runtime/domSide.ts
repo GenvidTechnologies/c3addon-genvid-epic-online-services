@@ -14,7 +14,7 @@
             
             // This provides a table of message names to functions to call for those messages.
             this.AddRuntimeMessageHandlers([
-                ["initialize",          async () => this._OnInitialize()],
+                ["initialize",          async (e) => this._OnInitialize(e)],
                 ["network-change",      e => this._OnNetworkChange(e)],
                 ["login",               async e => this._OnLogin(e)],
                 ["logout",              async () => this._OnLogout() ],
@@ -43,13 +43,27 @@
             return this.eos['ecom'];
         }
 
-        async _OnInitialize(): Promise<void>
+        async _OnInitialize(e: JSONValue): Promise<void>
         {
             if (!this.eos['available']) {
                 throw new Error('EOS is not available');
             }
             if (this.eos['initialized']) {
                 throw new Error('EOS already initialized');
+            }
+            const options = e as JSONObject;
+            const logLevel = options.logLevel as string;
+            switch(logLevel) {
+                case "error":
+                case "warn":
+                case "info":
+                case "debug":
+                {
+                    this.eos['onLog']((log: Log) => globalThis['console'][logLevel](log['message']));                        
+                }
+                break;
+                default:
+                    // Do nothing;
             }
             const response = await fetch('eos_config.json');
             const config = (await response.json()) as EOSSDKConfig;

@@ -60,7 +60,12 @@ interface EOSLoginStatus {
     status: "loggedIn" | "loggedOut" | "inProgress";
 }
 
+interface Log {
+    message: string;
+}
+
 type onLoginChanged = (status: EOSLoginStatus) => void;
+type onLog = (log: Log) => void;
 
 interface EosAuth {
     isLoggedIn(): Promise<boolean>;
@@ -90,6 +95,7 @@ interface EOS {
     initializeSDK(config: EOSSDKConfig, handler: onLoginChanged): Promise<void>;
     onConnect(): Promise<void>;
     onDisconnect(): Promise<void>;
+    onLog(handler: onLog): Promise<void>;
     auth: EosAuth;
     ecom: EosEcom;
 }

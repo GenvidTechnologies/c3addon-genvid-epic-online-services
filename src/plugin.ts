@@ -39,13 +39,16 @@ const PLUGIN_CLASS = SDK.Plugins.Genvid_EOS = class EOSPlugin extends SDK.IPlugi
         this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
 
         // TODO: Allow the eos_config.json to be specified to the cordova plugin.
-        // SDK.Lang.PushContext(".properties");
+        SDK.Lang.PushContext(".properties");
         
-        // this._info.SetProperties([
-        //     new SDK.PluginProperty("projectfile", "configuration", { "initialValue": "eos_config.json", "filter": "*.json"})
-        // ]);
+        this._info.SetProperties([
+            new SDK.PluginProperty("combo", "console-log-level", {
+                items: [ "none", "error", "warn", "info", "debug"],
+                initialValue: "none"
+            })
+        ]);
         
-        // SDK.Lang.PopContext();		// .properties
+        SDK.Lang.PopContext();		// .properties
         
         SDK.Lang.PopContext();
 

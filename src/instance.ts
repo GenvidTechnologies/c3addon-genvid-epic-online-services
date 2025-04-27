@@ -18,7 +18,7 @@ PLUGIN_CLASS.Instance = class EOSInstance extends SDK.IInstanceBase
 	{
 	}
 	
-	OnPropertyChanged(id: string, value: EditorPropertyValueType)
+	OnPropertyChanged(/* id: string, value: EditorPropertyValueType */)
 	{
 	}
 };

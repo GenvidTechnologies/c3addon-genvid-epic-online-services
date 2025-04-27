@@ -4,7 +4,9 @@
 	"sid": 116746662608191,
 	"singleglobal-inst": {
 		"type": "GenvidEOS",
-		"properties": {},
+		"properties": {
+			"console-log-level": "debug"
+		},
 		"uid": 10,
 		"sid": 509853804154514,
 		"tags": ""

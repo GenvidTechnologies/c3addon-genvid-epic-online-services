@@ -29,6 +29,16 @@
 					"ecom-checkout": "Purchases"
 				},
 				"conditions": {
+					"configuration-loaded": {
+						"display-text": "Configuration Loaded",
+						"list-name": "Is Configuration Loaded",
+						"description": "True if the default configuration has been loaded"
+					},
+					"on-configuration-loaded": {
+						"display-text": "On Configuration Loaded",
+						"list-name": "On Configuration Loaded",
+						"description": "Trigger when the default configuration has been loaded"
+					},
 					"on-initialization-success": {
 						"display-text": "On Initialization Successful",
 						"list-name": "On Initialization Successful",
@@ -138,6 +148,83 @@
 					}
 				},
 				"actions": {
+					"set-product-id": {
+						"list-name": "Set Product Id",
+						"display-text": "Set Product Id to {0}",
+						"description": "Set the product Id.",
+						"params": {
+							"product-id": {
+								"name": "Product Id",
+								"desc": "The Product Id"
+							}
+						}
+					},
+					"set-product-name": {
+						"list-name": "Set Product Name",
+						"display-text": "Set Product Name to {0}",
+						"description": "Set the product name. Default to project name.",
+						"params": {
+							"product-name": {
+								"name": "Product Name",
+								"desc": "The Product Name"
+							}
+						}
+					},
+					"set-product-version": {
+						"list-name": "Set Product Version",
+						"display-text": "Set Product Version to {0}",
+						"description": "Set the product version. Default to project version.",
+						"params": {
+							"product-version": {
+								"name": "Product Version",
+								"desc": "The Product Version"
+							}
+						}
+					},
+					"set-sandbox-id": {
+						"list-name": "Set Sandbox Id",
+						"display-text": "Set Sandbox to {0}",
+						"description": "Set the sandbox id.",
+						"params": {
+							"sandbox-id": {
+								"name": "Sandbox Id",
+								"desc": "The Sandbox Id"
+							}
+						}
+					},
+					"set-deployment-id": {
+						"list-name": "Set Deployment Id",
+						"display-text": "Set Deployment to {0}",
+						"description": "Set the deployment id.",
+						"params": {
+							"deployment-id": {
+								"name": "Deployment Id",
+								"desc": "The Deployment Id"
+							}
+						}
+					},
+					"set-client-id": {
+						"list-name": "Set Client Id",
+						"display-text": "Set Client Id to {0}",
+						"description": "Set the client id.\nATTENTION: the client id must match the one use in eos_config.json. Changing it can make the login failed.",
+						"params": {
+							"client-id": {
+								"name": "Client Id",
+								"desc": "The Client Id"
+							}
+						}
+					},
+					"set-client-secret": {
+						"list-name": "Set Client Secret",
+						"display-text": "Set Client Secret to {0}",
+						"description": "Set the client secret.",
+						"params": {
+							"client-secret": {
+								"name": "Client Secret",
+								"desc": "The Client Secret"
+							}
+						}
+					},
 					"initialize": {
 						"list-name": "Initialize SDK",
 						"display-text": "Initialize SDK",
@@ -203,6 +290,10 @@
 					}
 				},
 				"expressions": {
+					"configuration": {
+						"description": "Return the SDK configuration as a JSON string",
+						"translated-name": "Configuration"
+					},
 					"get-account-id": {
 						"description": "Return the account id of the user.",
 						"translated-name": "AccountId"
@@ -396,6 +487,14 @@
 					"title": "Genvid EOS",
 					"initialized": "Initialized",
 					"console-log-level": "Log Level",
+					"loaded": "Configuration Loaded",
+					"product-id": "Product Id",
+					"product-name": "Product Name",
+					"product-version": "Product Version",
+					"sandbox-id": "Sandbox Id",
+					"deployment-id": "Deployment Id",
+					"client-id": "Client Id",
+					"client-secret": "Client Secret",
 					"auth": {
 						"title": "Auth",
 						"state": "Login Status",

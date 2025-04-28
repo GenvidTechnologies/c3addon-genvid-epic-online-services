@@ -3,6 +3,14 @@
     "sdk": {
         "conditions": [
             {
+                "id": "on-configuration-loaded",
+                "scriptName": "OnConfigurationLoaded"
+            },
+            {
+                "id": "configuration-loaded",
+                "scriptName": "ConfigurationLoaded"
+            },
+            {
                 "id": "on-initialization-success",
                 "scriptName": "OnInitializationSuccess",
                 "isTrigger": true
@@ -19,6 +27,83 @@
             }
         ],
         "actions": [
+            {
+                "id": "set-product-id",
+                "scriptName": "SetProductId",
+                "params": [
+                    {
+                        "id": "product-id",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-product-name",
+                "scriptName": "SetProductName",
+                "params": [
+                    {
+                        "id": "product-name",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-product-version",
+                "scriptName": "SetProductVersion",
+                "params": [
+                    {
+                        "id": "product-version",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-sandbox-id",
+                "scriptName": "SetSandboxId",
+                "params": [
+                    {
+                        "id": "sandbox-id",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-deployment-id",
+                "scriptName": "SetDeploymentId",
+                "params": [
+                    {
+                        "id": "deployment-id",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-client-id",
+                "scriptName": "SetClientId",
+                "params": [
+                    {
+                        "id": "client-id",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
+                "id": "set-client-secret",
+                "scriptName": "SetClientSecret",
+                "params": [
+                    {
+                        "id": "client-secret",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
             {
                 "id": "initialize",
                 "scriptName": "Initialize",
@@ -37,7 +122,13 @@
                 ]
             }
         ],
-        "expressions": []
+        "expressions": [
+            {
+                "id": "configuration",
+                "expressionName": "Configuration",
+                "returnType": "string"
+            }
+        ]
     },
     "auth": {
         "conditions": [

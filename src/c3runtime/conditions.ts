@@ -5,6 +5,12 @@ const C3 = globalThis.C3;
 
 C3.Plugins.Genvid_EOS.Cnds =
 {
+	OnConfigurationLoaded(this: SDKInstanceClass) {
+		return true;
+	},
+	ConfigurationLoaded(this: SDKInstanceClass) {
+		return this._configLoaded;
+	},
 	OnInitializationSuccess(this: SDKInstanceClass) {
 		return true;
 	},

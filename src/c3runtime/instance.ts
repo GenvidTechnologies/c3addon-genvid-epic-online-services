@@ -25,18 +25,24 @@ const LogLevels = [
 ];
 
 class EOSInstance extends globalThis.ISDKInstanceBase {
-  _loggedIn = false;
+  _configLoaded = false;
+  _sdkConfig: Partial<EOSSDKConfig> = {};
   _initialized = false;
+  _logLevel?: string;
+
+  // Auth
+  _loggedIn = false;
   _accountId = "";
   _username = "";
   _token = "";
   _loginStatus: LoginState = "loggedOut";
+  
+  // ECom
   _entitlements: Array<EosEntitlement> = [];
   _offers: Array<EosOffer> = [];
   _checkoutOffers: Array<string> = [];
   _checkoutTransaction?: EosTransaction;
   _checkoutTag?: string;
-  _logLevel?: string;
 
   constructor() {
     // Note that DOM_COMPONENT_ID must be passed to the base class as an additional parameter.
@@ -44,6 +50,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
 
     this._loggedIn = false;
     this._initialized = false;
+    this._configLoaded = false;
     this._accountId = "";
     this._username = "";
     this._token = "";
@@ -61,6 +68,21 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
 		{
 			this._logLevel = LogLevels[properties[0] as number];
 		}
+
+    this.runtime.assets.fetchJson("eos_config.json")
+      .then(config => {
+        this._sdkConfig.ProductName = this.runtime.projectName;
+        this._sdkConfig.ProductVersion = this.runtime.projectVersion;
+        const cleanConfig = Object.fromEntries(Object.entries(config).filter(([,v]) => !!v));
+        Object.assign(this._sdkConfig, cleanConfig);
+      })
+      .catch((err) => {
+        console.error(`EOS Addon: Error fetching default config: ${err.message}`);
+      })
+      .finally(() => {
+        this._configLoaded = true;
+        this._trigger(C3.Plugins.Genvid_EOS.OnConfigurationLoaded);
+      });
 
     this._addDOMMessageHandler("on-state-change", (e) =>
       this._onStateChange(e)
@@ -176,6 +198,14 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
         properties: [
           { name: prefix + "initialized", value: this._initialized },
           { name: prefix + "console-log-level", value: this._logLevel ?? "none" },
+          { name: prefix + "loaded", value: this._configLoaded },
+          { name: prefix + "product-name", value: this._sdkConfig.ProductName ?? "" },
+          { name: prefix + "product-id", value: this._sdkConfig.ProductId ?? "" },
+          { name: prefix + "product-version", value: this._sdkConfig.ProductVersion ?? "" },
+          { name: prefix + "sandbox-id", value: this._sdkConfig.SandboxId ?? "" },
+          { name: prefix + "deployment-id", value: this._sdkConfig.DeploymentId ?? "" },
+          { name: prefix + "client-id", value: this._sdkConfig.ClientId ?? "" },
+          { name: prefix + "client-secret", value: this._sdkConfig.ClientSecret ?? "" },
         ],
       },
     ];

@@ -25,7 +25,14 @@ npm run zip:windows
 
 ### Setup
 
-You need to add `files/eos_config.json` with the correct information in it.
+Run the following:
+
+```bash
+npm run secrets
+```
+
+This will generated `files/eos_config.json` from `templates/eos_config.json` with the correct information in it.
+
 An example:
 
 ```json
@@ -39,6 +46,11 @@ An example:
     "ClientSecret": "very_secret"
 }
 ```
+
+As of version 1.1.0.0, only the ClientId is necessary in this file.
+The other values will be taken as default, but can be override (including ClientId)
+from the EventSheets.  If ProductName and ProductVersion aren't specified, they will be taken
+from the actual Project Name and Project Version.
 
 ### Build (Android only)
 

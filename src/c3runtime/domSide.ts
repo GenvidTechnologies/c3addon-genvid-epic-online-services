@@ -51,8 +51,7 @@
             if (this.eos['initialized']) {
                 throw new Error('EOS already initialized');
             }
-            const options = e as JSONObject;
-            const logLevel = options.logLevel as string;
+            const { logLevel, config } = e as JSONObject as { logLevel: string, config: EOSSDKConfig } ;
             switch(logLevel) {
                 case "error":
                 case "warn":
@@ -65,8 +64,6 @@
                 default:
                     // Do nothing;
             }
-            const response = await fetch('eos_config.json');
-            const config = (await response.json()) as EOSSDKConfig;
             await this.eos['initializeSDK'](config, state => this._onStateChange(state));
         }
 

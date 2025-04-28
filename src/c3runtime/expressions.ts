@@ -5,6 +5,11 @@ const C3 = globalThis.C3;
 
 C3.Plugins.Genvid_EOS.Exps =
 {
+	// SDK
+	Configuration(this: SDKInstanceClass) {
+		return JSON.stringify(this._sdkConfig);
+	},
+
 	// auth
 	AccountId(this: SDKInstanceClass)
 	{

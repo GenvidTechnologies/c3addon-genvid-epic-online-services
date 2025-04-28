@@ -4,7 +4,10 @@ const C3 = globalThis.C3;
 
 C3.Plugins.Genvid_EOS.Acts = {
   Initialize(this: SDKInstanceClass) {
-    return this._postToDOMAsync("initialize", { logLevel: this._logLevel ?? "none" })
+    return this._postToDOMAsync("initialize", {
+      logLevel: this._logLevel ?? "none",
+      config: this._sdkConfig,
+    })
       .then(async () => {
         this._initialized = true;
         await this._updateState();
@@ -15,6 +18,38 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationError);
       });
   },
+
+  SetProductName(this: SDKInstanceClass, productName: string) {
+    this._sdkConfig.ProductName = productName;
+  },
+
+  SetProductVersion(this: SDKInstanceClass, productVersion: string) {
+    this._sdkConfig.ProductVersion = productVersion;
+  },
+
+  SetProductId(this: SDKInstanceClass, productId: string) {
+    this._sdkConfig.ProductId = productId;
+  },
+
+  SetSandboxId(this: SDKInstanceClass, sandboxId: string) {
+    this._sdkConfig.SandboxId = sandboxId;
+  },
+
+  SetDeploymentId(this: SDKInstanceClass, deploymentId: string) {
+    this._sdkConfig.DeploymentId = deploymentId;
+  },
+
+  SetClientId(this: SDKInstanceClass, clientId: string) {
+    console.warn(
+      "EOS ClientId override. It is recommended to always use eos_config.json to pass the client id since it is used during compilation."
+    );
+    this._sdkConfig.ClientId = clientId;
+  },
+
+  SetClientSecret(this: SDKInstanceClass, clientSecret: string) {
+    this._sdkConfig.ClientSecret = clientSecret;
+  },
+
   OnNetworkChange(this: SDKInstanceClass, connected: boolean) {
     return this._postToDOM("network-change", { connected });
   },
@@ -53,7 +88,7 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlements);
       })
       .catch(() => {
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlementsError)
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlementsError);
       });
   },
   // ecom - offers
@@ -61,11 +96,11 @@ C3.Plugins.Genvid_EOS.Acts = {
     return this._postToDOMAsync("get-offers")
       .then((result) => {
         this._onGetOffers(result as JSONObject);
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffers)
+        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffers);
       })
       .catch(() => {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffersError);
-      })
+      });
   },
   // ecom - checkout
   PlanCheckout(this: SDKInstanceClass, offerId: string) {
@@ -86,5 +121,5 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckoutError);
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckoutError);
       });
-  }
+  },
 };

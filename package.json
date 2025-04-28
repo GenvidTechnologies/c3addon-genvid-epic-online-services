@@ -14,12 +14,13 @@
     "build": "tsc -p src --outDir dist",
     "postbuild": "shx cp src/*.{json,svg} dist/ && shx mkdir -p dist/lang && shx cp src/lang/*.json dist/lang && shx rm dist/tsconfig.json",
     "watch": "tsc -p src --outDir dist -w",
+    "secrets": "op inject -i sample/templates/eos_config.json -o sample/files/eos_config.json -f",
     "devmode": "http-server dist --cors",
     "prezip:windows": "shx rm -f Genvid_EOS.c3addon",
     "zip:windows": "cd dist && 7z.exe a -tzip -r ..\\Genvid_EOS.c3addon .",
-    "all:windows": "npm run build && npm run zip:windows",
+    "all:windows": "npm run lint && npm run build && npm run zip:windows",
     "prezip:linux": "shx rm -f Genvid_EOS.c3addon",
     "zip:linux": "cd dist && zip ../Genvid_EOS.c3addon -r .",
-    "all:linux": "npm run build && npm run zip:linux"
+    "all:linux": "npm run lint && npm run build && npm run zip:linux"
   }
 }

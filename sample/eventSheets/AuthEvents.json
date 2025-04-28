@@ -71,34 +71,94 @@
 						}
 					],
 					"sid": 348455785117032
-				},
-				{
-					"eventType": "block",
-					"conditions": [
-						{
-							"id": "else",
-							"objectClass": "System",
-							"sid": 914874222301399
-						}
-					],
-					"actions": [
-						{
-							"id": "set-text",
-							"objectClass": "Logs",
-							"sid": 479190491813376,
-							"parameters": {
-								"text": "\"Initializing the SDK...\""
-							}
-						},
-						{
-							"id": "initialize",
-							"objectClass": "GenvidEOS",
-							"sid": 818814747800809
-						}
-					],
-					"sid": 746948924020269
 				}
 			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-initialized",
+					"objectClass": "GenvidEOS",
+					"sid": 863471326978029,
+					"isInverted": true
+				},
+				{
+					"id": "configuration-loaded",
+					"objectClass": "GenvidEOS",
+					"sid": 821422109706766
+				},
+				{
+					"id": "trigger-once-while-true",
+					"objectClass": "System",
+					"sid": 180418730592155
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "Logs",
+					"sid": 342147555066865,
+					"parameters": {
+						"text": "\"Configuration loaded. Initializing the SDK...\""
+					}
+				},
+				{
+					"type": "comment",
+					"text": "Uncomment the below actions to override values in eos_config.json."
+				},
+				{
+					"id": "set-product-id",
+					"objectClass": "GenvidEOS",
+					"sid": 122196723611326,
+					"disabled": true,
+					"parameters": {
+						"product-id": "\"my product id\""
+					}
+				},
+				{
+					"id": "set-sandbox-id",
+					"objectClass": "GenvidEOS",
+					"sid": 290398903037070,
+					"disabled": true,
+					"parameters": {
+						"sandbox-id": "\"my sandbox id\""
+					}
+				},
+				{
+					"id": "set-deployment-id",
+					"objectClass": "GenvidEOS",
+					"sid": 248925793008763,
+					"disabled": true,
+					"parameters": {
+						"deployment-id": "\"my deployment id\""
+					}
+				},
+				{
+					"id": "set-client-secret",
+					"objectClass": "GenvidEOS",
+					"sid": 615820128799251,
+					"disabled": true,
+					"parameters": {
+						"client-secret": "\"my client secret\""
+					}
+				},
+				{
+					"id": "log",
+					"objectClass": "Browser",
+					"sid": 588561090604196,
+					"parameters": {
+						"type": "log",
+						"message": "\"SDK Config: \" & GenvidEOS.Configuration"
+					}
+				},
+				{
+					"id": "initialize",
+					"objectClass": "GenvidEOS",
+					"sid": 229464009624372
+				}
+			],
+			"sid": 795193803883222
 		},
 		{
 			"eventType": "group",

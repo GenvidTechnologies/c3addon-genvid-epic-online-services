@@ -73,7 +73,7 @@ jobs:
             npm run build
             npm run zip:linux
       - store_artifacts:
-          path: packages
+          path: Genvid_EOS.c3addon
       - run:
           name: Upload to Azure
           command: |

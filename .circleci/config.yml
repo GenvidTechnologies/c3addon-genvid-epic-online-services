@@ -79,7 +79,7 @@ jobs:
           command: |
             TAG=<< pipeline.git.tag >>
             BRANCH=<< pipeline.git.branch >>
-            if [ -z "${TAG}"]; then
+            if [ -z "${TAG}" ] ; then
               export SLUG=branch/${BRANCH}
             else
               export SLUG=tags/${TAG}

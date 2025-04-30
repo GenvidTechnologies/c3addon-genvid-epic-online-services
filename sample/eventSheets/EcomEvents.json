@@ -497,9 +497,9 @@
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 105223078097206,
+									"sid": 521734645995112,
 									"parameters": {
-										"text": "\"Error getting entitlements\""
+										"text": "\"Error getting entitlements: \" & GenvidEOS.LastError"
 									}
 								}
 							],
@@ -518,9 +518,9 @@
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 751746033438274,
+									"sid": 622743102716339,
 									"parameters": {
-										"text": "\"Error getting offers\""
+										"text": "\"Error getting offers: \" & GenvidEOS.LastError"
 									}
 								}
 							],
@@ -542,9 +542,9 @@
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 168405747332765,
+									"sid": 812021433040591,
 									"parameters": {
-										"text": "\"Error checking out entitlements\""
+										"text": "\"Error checking out entitlements: \" & GenvidEOS.LastError"
 									}
 								}
 							],
@@ -688,10 +688,10 @@
 								{
 									"id": "log",
 									"objectClass": "Browser",
-									"sid": 565150577019339,
+									"sid": 228426877198227,
 									"parameters": {
 										"type": "log",
-										"message": "\"Failure of Checkout \" & GenvidEOS.TransactionTag"
+										"message": "\"Failure of Checkout \" & GenvidEOS.TransactionTag & \": \" & GenvidEOS.LastError"
 									}
 								}
 							],

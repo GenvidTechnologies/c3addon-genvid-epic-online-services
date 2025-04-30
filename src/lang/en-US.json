@@ -294,6 +294,10 @@
 						"description": "Return the SDK configuration as a JSON string",
 						"translated-name": "Configuration"
 					},
+					"last-error": {
+						"description": "Return the last error receive",
+						"translated-name": "LastError"
+					},
 					"get-account-id": {
 						"description": "Return the account id of the user.",
 						"translated-name": "AccountId"

@@ -9,7 +9,9 @@ C3.Plugins.Genvid_EOS.Exps =
 	Configuration(this: SDKInstanceClass) {
 		return JSON.stringify(this._sdkConfig);
 	},
-
+	LastError(this: SDKInstanceClass) {
+		return this._lastError ?? "";
+	},
 	// auth
 	AccountId(this: SDKInstanceClass)
 	{

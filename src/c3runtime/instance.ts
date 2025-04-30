@@ -29,6 +29,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
   _sdkConfig: Partial<EOSSDKConfig> = {};
   _initialized = false;
   _logLevel?: string;
+  _lastError = "";
 
   // Auth
   _loggedIn = false;
@@ -51,6 +52,7 @@ class EOSInstance extends globalThis.ISDKInstanceBase {
     this._loggedIn = false;
     this._initialized = false;
     this._configLoaded = false;
+    this._lastError = "";
     this._accountId = "";
     this._username = "";
     this._token = "";

@@ -19,8 +19,8 @@
     "prezip:windows": "shx rm -f Genvid_EOS.c3addon",
     "zip:windows": "cd dist && 7z.exe a -tzip -r ..\\Genvid_EOS.c3addon .",
     "all:windows": "npm run lint && npm run build && npm run zip:windows",
-    "prezip:linux": "shx rm -f Genvid_EOS.c3addon",
-    "zip:linux": "cd dist && zip ../Genvid_EOS.c3addon -r .",
-    "all:linux": "npm run lint && npm run build && npm run zip:linux"
+    "prezip:posix": "shx rm -f Genvid_EOS.c3addon",
+    "zip:posix": "cd dist && zip ../Genvid_EOS.c3addon -r .",
+    "all:posix": "npm run lint && npm run build && npm run zip:posix"
   }
 }

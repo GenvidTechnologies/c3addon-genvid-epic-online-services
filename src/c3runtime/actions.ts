@@ -13,7 +13,8 @@ C3.Plugins.Genvid_EOS.Acts = {
         await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationSuccess);
       })
-      .catch(async () => {
+      .catch(async (err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationError);
       });
@@ -58,7 +59,8 @@ C3.Plugins.Genvid_EOS.Acts = {
   LoginPersistent(this: SDKInstanceClass) {
     return this._postToDOMAsync("login", { persistent: true })
       .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(async () => {
+      .catch(async (err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPersistentError);
       });
@@ -66,7 +68,8 @@ C3.Plugins.Genvid_EOS.Acts = {
   LoginPortal(this: SDKInstanceClass) {
     return this._postToDOMAsync("login", { persistent: false })
       .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(async () => {
+      .catch(async (err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPortalError);
       });
@@ -74,7 +77,8 @@ C3.Plugins.Genvid_EOS.Acts = {
   Logout(this: SDKInstanceClass) {
     return this._postToDOMAsync("logout")
       .then((result) => this._onLogoutResult(result as JSONObject))
-      .catch(async () => {
+      .catch(async (err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         await this._updateState();
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLogoutError);
       });
@@ -87,7 +91,8 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._onGetEntitlements(result as JSONObject);
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlements);
       })
-      .catch(() => {
+      .catch((err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlementsError);
       });
   },
@@ -98,7 +103,8 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._onGetOffers(result as JSONObject);
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffers);
       })
-      .catch(() => {
+      .catch((err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffersError);
       });
   },
@@ -117,7 +123,8 @@ C3.Plugins.Genvid_EOS.Acts = {
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckout);
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckout);
       })
-      .catch(() => {
+      .catch((err) => {
+        this._lastError = err['message'] ?? err ?? ""; 
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckoutError);
         this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckoutError);
       });

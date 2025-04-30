@@ -71,7 +71,7 @@ jobs:
           name: Build
           command: |
             npm run build
-            npm run zip:linux
+            npm run zip:posix
       - store_artifacts:
           path: Genvid_EOS.c3addon
       - run:

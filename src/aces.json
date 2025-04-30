@@ -127,6 +127,11 @@
                 "id": "configuration",
                 "expressionName": "Configuration",
                 "returnType": "string"
+            },
+            {
+                "id": "last-error",
+                "expressionName": "LastError",
+                "returnType": "string"
             }
         ]
     },

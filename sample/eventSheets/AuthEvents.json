@@ -1072,9 +1072,9 @@
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 837169245090837,
+									"sid": 832425955646793,
 									"parameters": {
-										"text": "\"Error initializing SDK. Waiting 10 seconds before retrying...\""
+										"text": "\"Error initializing SDK: \" & GenvidEOS.LastError & newline & \"Waiting 10 seconds before retrying...\""
 									}
 								},
 								{
@@ -1141,9 +1141,9 @@
 								{
 									"id": "set-text",
 									"objectClass": "Logs",
-									"sid": 588845520352233,
+									"sid": 458758490222760,
 									"parameters": {
-										"text": "\"Error trying to login with portal\""
+										"text": "\"Error trying to login with portal: \" & GenvidEOS.LastError"
 									}
 								}
 							],

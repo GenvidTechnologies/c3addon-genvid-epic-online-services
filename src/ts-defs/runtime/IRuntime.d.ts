@@ -5,6 +5,11 @@
  * such as "beforeprojectstart". */
 declare function runOnStartup(callback: (runtime: IRuntime) => void | Promise<void>): void;
 
+// For editor validation of TypeScript in event sheets
+declare namespace C3 {
+    let TypeScriptInEvents: any;
+}
+
 // General runtime type definitions
 type LayoutParameter = string | number;
 type LayerParameter = string | number;
@@ -25,6 +30,10 @@ interface TextFragmentPositionAndSize {
 	width: number,
 	height: number
 }
+
+type Vec2Arr = [number, number];
+type Vec3Arr = [number, number, number];
+type Vec4Arr = [number, number, number, number];
 
 type SDKPropertyType = number | string | boolean;
 type WrapperExtensionParameterType = number | string | boolean;
@@ -76,8 +85,8 @@ interface ConstructInstanceDestroyEvent extends ConstructEvent {
 }
 
 interface RuntimeEventMap {
-	"suspend": ConstructEvent,
-	"resume": ConstructEvent,
+	"suspend": ConstructEvent;
+	"resume": ConstructEvent;
 	"resize": ConstructResizeEvent;
 	"tick": ConstructEvent;
     "beforeprojectstart": ConstructEvent;
@@ -104,6 +113,7 @@ interface RuntimeEventMap {
 	"afterload": ConstructEvent;
 	"instancecreate": ConstructInstanceCreateEvent;
 	"instancedestroy": ConstructInstanceDestroyEvent;
+	"loadingprogress": ConstructEvent;
 }
 
 /** Represents the Construct engine itself, and is the main entry point in to various Construct APIs.
@@ -116,9 +126,10 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 	readonly assets: IAssetManager;
 	readonly collisions: ICollisionEngine;
 	readonly storage: IStorage;
-	readonly keyboard?: IKeyboardObjectType<IInstance>;
-	readonly mouse?: IMouseObjectType<IInstance>;
-	readonly touch?: ITouchObjectType<IInstance>;
+	readonly keyboard: IKeyboardObjectType;
+	readonly mouse: IMouseObjectType;
+	readonly touch: ITouchObjectType;
+	readonly timelineController: ITimelineControllerObjectType;
 	readonly platformInfo: IPlatformInfo;
 	readonly sdk: ISDKUtils;
 
@@ -129,11 +140,13 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 
 	readonly projectName: string;
 	readonly projectVersion: string;
+	readonly projectId: string;
+	readonly projectUniqueId: string;
 	readonly exportDate: Date;
 	readonly isInWorker: boolean;
 	readonly viewportWidth: number;
 	readonly viewportHeight: number;
-	getViewportSize(): number[];
+	getViewportSize(): Vec2Arr;
 
 	readonly sampling: SamplingModeType;
 	readonly isPixelRoundingEnabled: boolean;
@@ -142,6 +155,7 @@ declare class IRuntime extends ConstructEventTarget<RuntimeEventMap>
 	get dtRaw(): number;
 	get gameTime(): number;
 	get wallTime(): number;
+	get tickCount(): number;
 	timeScale: number;
 	get isSuspended(): boolean;
 

@@ -44,7 +44,7 @@ declare class IWorldInstance extends IInstance
 	x: number;
 	y: number;
 	setPosition(x: number, y: number): void;
-	getPosition(): number[];
+	getPosition(): Vec2Arr;
 	offsetPosition(dx: number, dy: number): void;
 
 	zElevation: number;
@@ -53,12 +53,12 @@ declare class IWorldInstance extends IInstance
 	originX: number;
 	originY: number;
 	setOrigin(x: number, y: number): void;
-	getOrigin(): number[];
+	getOrigin(): Vec2Arr;
 
 	width: number;
 	height: number;
 	setSize(w: number, h: number): void;
-	getSize(): number[];
+	getSize(): Vec2Arr;
 
 	angle: number;
 	angleDegrees: number;
@@ -69,7 +69,7 @@ declare class IWorldInstance extends IInstance
 
 	isVisible: boolean;
 	opacity: number;
-	colorRgb: number[];
+	colorRgb: Vec3Arr;
 	blendMode: BlendModeParameter;
 	effects: IEffectInstance[];
 
@@ -86,11 +86,11 @@ declare class IWorldInstance extends IInstance
 
 	getParent(): IWorldInstance | null;
 	getTopParent(): IWorldInstance | null;
-	parents(): Iterable<IWorldInstance>;
+	parents(): Generator<IWorldInstance>;
 	getChildCount(): number;
 	getChildAt(index: number): IWorldInstance | null;
-	children(): Iterable<IWorldInstance>;
-	allChildren(): Iterable<IWorldInstance>;
+	children(): Generator<IWorldInstance>;
+	allChildren(): Generator<IWorldInstance>;
 	addChild(child: IWorldInstance, opts?: SceneGraphAddChildOpts): void;
 	removeChild(child: IWorldInstance): void;
 	removeFromParent(): void;
@@ -100,5 +100,5 @@ declare class IWorldInstance extends IInstance
 	releaseMesh(): void;
 	setMeshPoint(col: number, row: number, opts: SetMeshPointOpts): void;
 	getMeshPoint(col: number, row: number): GetMeshPointOpts;
-	getMeshSize(): number[];
+	getMeshSize(): Vec2Arr;
 }

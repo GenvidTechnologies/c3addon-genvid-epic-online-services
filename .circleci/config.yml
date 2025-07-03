@@ -17,9 +17,6 @@ parameters:
   slack_channel_success:
     default: "#bot-circleci-builds"
     type: string
-  plugin_name:
-    type: string
-    default: cordova-plugin-eos
   node_version:
     type: string
     default: "22.14"
@@ -35,9 +32,9 @@ commands:
           command: |
             az login \
               --service-principal \
-              --username ${AZURE_SP_APPID} \
-              --tenant ${AZURE_SP_TENANT} \
-              --password ${AZURE_SP_PASSWORD}
+              --username=${AZURE_SP_APPID} \
+              --tenant=${AZURE_SP_TENANT} \
+              --password=${AZURE_SP_PASSWORD}
 
 jobs:
   packages:

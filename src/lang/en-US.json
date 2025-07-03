@@ -136,6 +136,17 @@
 							}
 						}
 					},
+					"on-checkout-cancelled": {
+						"display-text": "On Checkout {0} cancellation",
+						"list-name": "On Checkout cancellation",
+						"description": "Calls when a purchase has been cancelled",
+						"params": {
+							"tag": {
+								"name": "tag",
+								"desc": "Tag of the purchase"
+							}
+						}
+					},
 					"on-any-checkout-success": {
 						"display-text": "On Any Checkout",
 						"list-name": "On Any Checkout",
@@ -145,6 +156,11 @@
 						"display-text": "On Any Checkout failure",
 						"list-name": "On Any Checkout failure",
 						"description": "Calls when any purchase fail"
+					},
+					"on-any-checkout-cancelled": {
+						"display-text": "On Any Checkout cancellation",
+						"list-name": "On Any Checkout cancellation",
+						"description": "Calls when any purchase has been cancelled"
 					}
 				},
 				"actions": {

@@ -26,7 +26,7 @@ declare class IRenderer
     setTextureFillMode(): void;
     setSmoothLineFillMode(): void;
 
-    setColor(color: number[]): void;
+    setColor(color: Vec4Arr): void;
     setColorRgba(r: number, g: number, b: number, a: number): void;
     setOpacity(o: number): void;
     resetColor(): void;

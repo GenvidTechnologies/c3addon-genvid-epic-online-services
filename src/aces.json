@@ -453,6 +453,18 @@
                 ]
             },
             {
+                "id": "on-checkout-cancelled",
+                "scriptName": "OnCheckoutCancelled",
+                "isTrigger": true,
+                "params": [
+                    {
+                        "id": "tag",
+                        "type": "string",
+                        "initialValue": "\"\""
+                    }
+                ]
+            },
+            {
                 "id": "on-any-checkout-success",
                 "scriptName": "OnAnyCheckout",
                 "isTrigger": true
@@ -460,6 +472,11 @@
             {
                 "id": "on-any-checkout-error",
                 "scriptName": "OnAnyCheckoutError",
+                "isTrigger": true
+            },
+            {
+                "id": "on-any-checkout-cancelled",
+                "scriptName": "OnAnyCheckoutCancelled",
                 "isTrigger": true
             }
         ],

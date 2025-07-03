@@ -4,20 +4,7 @@ const C3 = globalThis.C3;
 
 C3.Plugins.Genvid_EOS.Acts = {
   Initialize(this: SDKInstanceClass) {
-    return this._postToDOMAsync("initialize", {
-      logLevel: this._logLevel ?? "none",
-      config: this._sdkConfig,
-    })
-      .then(async () => {
-        this._initialized = true;
-        await this._updateState();
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationSuccess);
-      })
-      .catch(async (err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        await this._updateState();
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnInitializationError);
-      });
+    return this.Initialize();
   },
 
   SetProductName(this: SDKInstanceClass, productName: string) {
@@ -57,76 +44,30 @@ C3.Plugins.Genvid_EOS.Acts = {
 
   // Auth module
   LoginPersistent(this: SDKInstanceClass) {
-    return this._postToDOMAsync("login", { persistent: true })
-      .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(async (err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        await this._updateState();
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPersistentError);
-      });
+    return this.LoginPersistent();
   },
   LoginPortal(this: SDKInstanceClass) {
-    return this._postToDOMAsync("login", { persistent: false })
-      .then((result) => this._onLoginResult(result as JSONObject))
-      .catch(async (err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        await this._updateState();
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLoginPortalError);
-      });
+    return this.LoginPortal();
   },
   Logout(this: SDKInstanceClass) {
-    return this._postToDOMAsync("logout")
-      .then((result) => this._onLogoutResult(result as JSONObject))
-      .catch(async (err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        await this._updateState();
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnLogoutError);
-      });
+    return this.Logout();
   },
 
   // ecom - entitlements
   GetEntitlements(this: SDKInstanceClass) {
-    return this._postToDOMAsync("get-entitlements")
-      .then((result) => {
-        this._onGetEntitlements(result as JSONObject);
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlements);
-      })
-      .catch((err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetEntitlementsError);
-      });
+    return this.GetEntitlements();
   },
   // ecom - offers
   GetOffers(this: SDKInstanceClass) {
-    return this._postToDOMAsync("get-offers")
-      .then((result) => {
-        this._onGetOffers(result as JSONObject);
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffers);
-      })
-      .catch((err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnGetOffersError);
-      });
+    return this.GetOffers();
   },
   // ecom - checkout
   PlanCheckout(this: SDKInstanceClass, offerId: string) {
     this._checkoutOffers.push(offerId);
   },
   Checkout(this: SDKInstanceClass, tag: string) {
-    const offers = this._checkoutOffers;
+    const promise = this.Checkout(this._checkoutOffers, tag);
     this._checkoutOffers = [];
-    this._checkoutTag = tag;
-    this._checkoutTransaction = undefined;
-    return this._postToDOMAsync("checkout", { offers })
-      .then((result) => {
-        this._checkoutTransaction = result as unknown as EosTransaction;
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckout);
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckout);
-      })
-      .catch((err) => {
-        this._lastError = err['message'] ?? err ?? ""; 
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnCheckoutError);
-        this._trigger(C3.Plugins.Genvid_EOS.Cnds.OnAnyCheckoutError);
-      });
+    return promise;
   },
 };

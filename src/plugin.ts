@@ -1,4 +1,3 @@
-
 const SDK = globalThis.SDK;
 
 ////////////////////////////////////////////
@@ -14,48 +13,56 @@ const PLUGIN_ID = "Genvid_EOS";
 
 const PLUGIN_CATEGORY = "general";
 
-const PLUGIN_CLASS = SDK.Plugins.Genvid_EOS = class EOSPlugin extends SDK.IPluginBase
-{
-    constructor()
-    {
-        super(PLUGIN_ID);
-        
-        SDK.Lang.PushContext("plugins." + PLUGIN_ID.toLowerCase());
-        
-        this._info.SetName(globalThis.lang(".name"));
-        this._info.SetDescription(globalThis.lang(".description"));
-        this._info.SetCategory(PLUGIN_CATEGORY);
-        this._info.SetAuthor("Genvid Technologies, LLC");
-        this._info.SetHelpUrl(globalThis.lang(".help-url"));
-        this._info.SetIsSingleGlobal(true);
-        this._info.SetRuntimeModuleMainScript("c3runtime/main.js");
+const PLUGIN_CLASS = (SDK.Plugins.Genvid_EOS = class EOSPlugin extends (
+  SDK.IPluginBase
+) {
+  constructor() {
+    super(PLUGIN_ID);
 
-        // Cordova Plugins
-        this._info.AddCordovaPluginReference({
-            id: "cordova-plugin-eos"
-        });
+    SDK.Lang.PushContext("plugins." + PLUGIN_ID.toLowerCase());
 
-        // Set the domSide.js script to run in the context of the DOM
-        this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
+    this._info.SetName(globalThis.lang(".name"));
+    this._info.SetDescription(globalThis.lang(".description"));
+    this._info.SetCategory(PLUGIN_CATEGORY);
+    this._info.SetAuthor("Genvid Technologies, LLC");
+    this._info.SetHelpUrl(globalThis.lang(".help-url"));
+    this._info.SetIsSingleGlobal(true);
+    this._info.SetRuntimeModuleMainScript("c3runtime/main.js");
+    this._info.SetC3RuntimeScripts(
+      [
+        "main",
+        "plugin",
+        "instance",
+        "conditions",
+        "actions",
+        "expressions",
+      ].map((f) => `c3runtime/${f}.js`)
+    );
 
-        // TODO: Allow the eos_config.json to be specified to the cordova plugin.
-        SDK.Lang.PushContext(".properties");
-        
-        this._info.SetProperties([
-            new SDK.PluginProperty("combo", "console-log-level", {
-                items: [ "none", "error", "warn", "info", "debug"],
-                initialValue: "none"
-            })
-        ]);
-        
-        SDK.Lang.PopContext();		// .properties
-        
-        SDK.Lang.PopContext();
+    // Cordova Plugins
+    this._info.AddCordovaPluginReference({
+      id: "cordova-plugin-eos",
+    });
 
+    // Set the domSide.js script to run in the context of the DOM
+    this._info.SetDOMSideScripts(["c3runtime/domSide.js"]);
 
-    }
-};
+    // TODO: Allow the eos_config.json to be specified to the cordova plugin.
+    SDK.Lang.PushContext(".properties");
+
+    this._info.SetProperties([
+      new SDK.PluginProperty("combo", "console-log-level", {
+        items: ["none", "error", "warn", "info", "debug"],
+        initialValue: "none",
+      }),
+    ]);
+
+    SDK.Lang.PopContext(); // .properties
+
+    SDK.Lang.PopContext();
+  }
+});
 
 PLUGIN_CLASS.Register(PLUGIN_ID, PLUGIN_CLASS);
 
-export {}
+export {};

@@ -66,10 +66,16 @@ C3.Plugins.Genvid_EOS.Cnds =
 	OnCheckoutError(this: SDKInstanceClass, tag: string) {
 		return this._checkoutTag === tag;
 	},
+	OnCheckoutCancelled(this: SDKInstanceClass, tag: string) {
+		return this._checkoutTag === tag;
+	},
 	OnAnyCheckout(this: SDKInstanceClass) {
 		return true;
 	},
 	OnAnyCheckoutError(this: SDKInstanceClass) {
 		return true;
-	}
+	},
+	OnAnyCheckoutCancelled(this: SDKInstanceClass) {
+		return true;
+	},
 };

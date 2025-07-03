@@ -549,6 +549,58 @@
 								}
 							],
 							"sid": 713678978821300
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-any-checkout-error",
+									"objectClass": "GenvidEOS",
+									"sid": 783824827146618
+								}
+							],
+							"actions": [
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 107238516774228,
+									"parameters": {
+										"type": "log",
+										"message": "\"Failure of Checkout \" & GenvidEOS.TransactionTag & \": \" & GenvidEOS.LastError"
+									}
+								}
+							],
+							"sid": 749307746014854
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-any-checkout-cancelled",
+									"objectClass": "GenvidEOS",
+									"sid": 757963821963926
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "Logs",
+									"sid": 139910962781416,
+									"parameters": {
+										"text": "\"Checkout \" & GenvidEOS.TransactionTag & \" cancelled\""
+									}
+								},
+								{
+									"id": "log",
+									"objectClass": "Browser",
+									"sid": 901468884465006,
+									"parameters": {
+										"type": "log",
+										"message": "\"Checkout has been cancelled.\""
+									}
+								}
+							],
+							"sid": 990131060626047
 						}
 					],
 					"sid": 435065957976901
@@ -674,28 +726,6 @@
 								}
 							],
 							"sid": 744470773218419
-						},
-						{
-							"eventType": "block",
-							"conditions": [
-								{
-									"id": "on-any-checkout-error",
-									"objectClass": "GenvidEOS",
-									"sid": 227363377814164
-								}
-							],
-							"actions": [
-								{
-									"id": "log",
-									"objectClass": "Browser",
-									"sid": 228426877198227,
-									"parameters": {
-										"type": "log",
-										"message": "\"Failure of Checkout \" & GenvidEOS.TransactionTag & \": \" & GenvidEOS.LastError"
-									}
-								}
-							],
-							"sid": 487137290019353
 						}
 					],
 					"sid": 357499819229394

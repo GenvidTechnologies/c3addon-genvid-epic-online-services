@@ -7,20 +7,20 @@ type Shape3DFaceType = "back" | "front" | "left" | "right" | "top" | "bottom";
 declare class I3DShapeInstance extends IWorldInstance
 {
 	zHeight: number;
-	shape: Shape3DFaceType;
+	shape: Shape3DShapeType;
 	zTilingFactor: number;
 
 	getImagePointCount(): number;
 	getImagePointX(nameOrIndex: ImagePointParameter): number;
 	getImagePointY(nameOrIndex: ImagePointParameter): number;
 	getImagePointZ(nameOrIndex: ImagePointParameter): number;
-	getImagePoint(nameOrIndex: ImagePointParameter): number[];
+	getImagePoint(nameOrIndex: ImagePointParameter): Vec3Arr;
 
 	getFaceImagePointCount(face: Shape3DFaceType): number;
 	getFaceImagePointX(face: Shape3DFaceType, nameOrIndex: ImagePointParameter): number;
 	getFaceImagePointY(face: Shape3DFaceType, nameOrIndex: ImagePointParameter): number;
 	getFaceImagePointZ(face: Shape3DFaceType, nameOrIndex: ImagePointParameter): number;
-	getFaceImagePoint(face: Shape3DFaceType, nameOrIndex: ImagePointParameter): number[];
+	getFaceImagePoint(face: Shape3DFaceType, nameOrIndex: ImagePointParameter): Vec3Arr;
 
 	setFaceVisible(face: Shape3DFaceType, isVisible: boolean): void;
 	isFaceVisible(face: Shape3DFaceType): boolean;

@@ -1,5 +1,5 @@
 
-type PluginPropertyInitialValueType = number | number[] | string | boolean;
+type PluginPropertyInitialValueType = number | Vec3Arr | string | boolean;
 
 type PluginPropertyType = "integer" | "float" | "percent" | "text" | "longtext" | "check" | "font" | "combo" | "color" | "object" | "group" | "link" | "info" | "projectfile";
 

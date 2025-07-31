@@ -5,7 +5,8 @@
 	"singleglobal-inst": {
 		"type": "GenvidEOS",
 		"properties": {
-			"console-log-level": "debug"
+			"console-log-level": "debug",
+			"offers-available-only": true
 		},
 		"uid": 10,
 		"sid": 509853804154514,

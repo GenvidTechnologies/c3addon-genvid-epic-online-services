@@ -19,6 +19,10 @@
 							"debug": "Debug",
 							"none": "None"
 						}
+					},
+					"offers-available-only": {
+						"name": "Only available offers",
+						"desc": "Filter out non-available offers when enabled."
 					}
 				},
 				"aceCategories": {

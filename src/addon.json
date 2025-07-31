@@ -6,7 +6,7 @@
 	"type": "plugin",
 	"name": "Genvid EOS",
 	"id": "Genvid_EOS",
-	"version": "1.1.1.0",
+	"version": "1.1.2.0",
 	"author": "Genvid Technologies, LLC",
 	"website": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
 	"documentation": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
@@ -17,7 +17,7 @@
 	"file-list": [
 		"c3runtime/main.js",
 		"c3runtime/plugin.js",
-				"c3runtime/instance.js",
+		"c3runtime/instance.js",
 		"c3runtime/conditions.js",
 		"c3runtime/actions.js",
 		"c3runtime/expressions.js",

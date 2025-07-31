@@ -55,6 +55,7 @@ const PLUGIN_CLASS = (SDK.Plugins.Genvid_EOS = class EOSPlugin extends (
         items: ["none", "error", "warn", "info", "debug"],
         initialValue: "none",
       }),
+      new SDK.PluginProperty("check", "offers-available-only", false),
     ]);
 
     SDK.Lang.PopContext(); // .properties

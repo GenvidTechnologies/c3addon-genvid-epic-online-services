@@ -40,6 +40,7 @@ class EOSInstance extends ISDKInstanceBase {
   _checkoutOffers: Array<string> = [];
   _checkoutTransaction?: EosTransaction;
   _checkoutTag?: string;
+  _availableOnly: boolean = false;
 
   constructor() {
     // Note that DOM_COMPONENT_ID must be passed to the base class as an additional parameter.
@@ -59,12 +60,14 @@ class EOSInstance extends ISDKInstanceBase {
     this._checkoutOffers = [];
     this._checkoutTransaction = undefined;
     this._checkoutTag = undefined;
+    this._availableOnly = false;
 
     this._logLevel = "none";
     const properties = this._getInitProperties();
     if (properties) {
       // note properties may be null in some cases
       this._logLevel = EOS_LOG_LEVELS[properties[0] as number];
+      this._availableOnly = properties[1] as boolean;
     }
 
     this.runtime.assets
@@ -150,7 +153,12 @@ class EOSInstance extends ISDKInstanceBase {
   }
 
   _onGetOffers(value: JSONObject): Array<EosOffer> {
-    this._offers = value.offers as unknown as Array<EosOffer>;
+    const offers = value.offers as unknown as Array<EosOffer>;
+    if (this._availableOnly) {
+      this._offers = offers.filter(o => o.Available);
+    } else {
+      this._offers = offers;
+    }
     return this._offers;
   }
 

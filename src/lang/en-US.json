@@ -7,7 +7,7 @@
 			"genvid_eos": {
 				"name": "GenvidEOS",
 				"description": "Integration of Epic Online Services API.",
-				"help-url": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
+				"help-url": "https://github.com/GenvidTechnologies/c3addon-genvid-epic-online-services",
 				"properties": {
 					"console-log-level": {
 						"name": "Console Log Level",

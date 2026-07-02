@@ -1,0 +1,19 @@
+{
+  "project": {
+    "name": "c3addon-genvid-epic-online-services",
+    "description": "Construct 3 addon exposing Epic Online Services (EOS) to Genvid-built games.",
+    "languages": ["typescript", "javascript"]
+  },
+  "commands": {
+    "test": "",
+    "lint": "npm run lint",
+    "build": "npm run build",
+    "validate": "npm run lint && npm run build"
+  },
+  "repo": {
+    "host": "github",
+    "default_branch": "main"
+  },
+  "features": {},
+  "paths": {}
+}

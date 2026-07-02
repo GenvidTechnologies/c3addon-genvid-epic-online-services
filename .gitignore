@@ -51,6 +51,9 @@ Thumbs.db
 # Sample app current UI State
 *.uistate.json
 
+# Transient planning artifact (gvt-dev:plan-task)
+plan.md
+
 # zip file
 *.c3addon
 ios/

@@ -41,7 +41,7 @@ const PLUGIN_CLASS = (SDK.Plugins.Genvid_EOS = class EOSPlugin extends (
 
     // Cordova Plugins
     this._info.AddCordovaPluginReference({
-      id: "cordova-plugin-eos",
+      id: "@genvidtech/cordova-plugin-eos",
     });
 
     // Set the domSide.js script to run in the context of the DOM

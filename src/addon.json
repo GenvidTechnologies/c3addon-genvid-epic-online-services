@@ -8,8 +8,8 @@
 	"id": "Genvid_EOS",
 	"version": "1.1.2.0",
 	"author": "Genvid Technologies, LLC",
-	"website": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
-	"documentation": "https://bitbucket.org/genvidtech/c3addon-genvid-epic-online-services",
+	"website": "https://github.com/GenvidTechnologies/c3addon-genvid-epic-online-services",
+	"documentation": "https://github.com/GenvidTechnologies/c3addon-genvid-epic-online-services",
 	"description": "Integration of the Epic Game Online Services API",
 	"editor-scripts": [
 		"plugin.js"

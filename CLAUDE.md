@@ -19,7 +19,13 @@ TypeScript source in `src/`, compiled to `dist/`, packaged as
 - Package: `npm run zip:windows` / `npm run zip:posix` (produces `Genvid_EOS.c3addon`)
 - Validate (lint + build): `npm run lint && npm run build`
 
-There is no automated test suite; validation is lint + a clean build.
+There is no automated test suite; in-repo validation is lint + a clean build.
+`npm run build` only typechecks and packages the addon — it does not exercise it
+at runtime. **Testing the addon** means exporting the sample from the Construct 3
+editor and preparing/building that export (Cordova → Android, per `README.md`),
+similar to Burbank. So an acceptance criterion like "verify it runs against
+dependency vX" is not reproducible from `npm run build` alone; treat it as
+out-of-band verification done in the C3 editor.
 
 ## Commit Format
 

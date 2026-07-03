@@ -1,0 +1,31 @@
+name: Release
+
+# Publish the .c3addon to a GitHub Release when a version tag is pushed.
+# Tag pattern mirrors the legacy CircleCI filter: starts with one or more
+# digits followed by a dot (e.g. 1.0.0.0).
+on:
+  push:
+    tags:
+      - '[0-9]+.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run zip:posix
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Genvid_EOS.c3addon
+          generate_release_notes: true

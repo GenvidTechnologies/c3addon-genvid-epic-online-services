@@ -27,6 +27,19 @@ similar to Burbank. So an acceptance criterion like "verify it runs against
 dependency vX" is not reproducible from `npm run build` alone; treat it as
 out-of-band verification done in the C3 editor.
 
+## CI / Releasing
+
+CI/CD runs on GitHub Actions (modeled on the sibling `c3addon-genvid-marketplace`):
+
+- `.github/workflows/ci.yml` — lints and builds on every push to `main` and every
+  pull request.
+- `.github/workflows/release.yml` — on a version tag matching `[0-9]+.*` (e.g.
+  `1.0.0.0`), builds, packages via `npm run zip:posix`, and publishes
+  `Genvid_EOS.c3addon` to a GitHub Release. **To cut a release, push such a tag.**
+
+Distribution is via GitHub Releases (the legacy CircleCI Azure blob upload was
+dropped in the migration).
+
 ## Commit Format
 
 Plain imperative subject, referencing the GitHub issue when there is one:

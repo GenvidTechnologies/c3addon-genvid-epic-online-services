@@ -19,6 +19,11 @@ TypeScript source in `src/`, compiled to `dist/`, packaged as
 - Package: `npm run zip:windows` / `npm run zip:posix` (produces `Genvid_EOS.c3addon`)
 - Validate (lint + build): `npm run lint && npm run build`
 
+A fresh clone or worktree has no `node_modules`. Run `npm ci` before the first
+commit: the gvt-dev pre-commit hook runs `npm run lint`, and without
+`node_modules` it fails with `'eslint' is not recognized`, which reads like a
+lint error.
+
 There is no automated test suite; in-repo validation is lint + a clean build.
 `npm run build` only typechecks and packages the addon — it does not exercise it
 at runtime. **Testing the addon** means exporting the sample from the Construct 3
@@ -26,6 +31,14 @@ editor and preparing/building that export (Cordova → Android, per `README.md`)
 similar to Burbank. So an acceptance criterion like "verify it runs against
 dependency vX" is not reproducible from `npm run build` alone; treat it as
 out-of-band verification done in the C3 editor.
+
+## Documentation
+
+Project documentation lives in `wiki/`, in the `maintain-wiki` format (gvt-wiki
+plugin). `wiki/index.md` is the documentation index (`paths['docs/TOC.md']` in
+`.gvt-agent.json`), and `wiki/schema.md` holds the page rules. A new or changed
+page gets an entry in `wiki/index.md` and a dated entry in `wiki/log.md`. The
+issue triage contract for `/gvt-dev:triage-issues` is `wiki/issue-triage.md`.
 
 ## CI / Releasing
 
